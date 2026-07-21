@@ -180,7 +180,7 @@
                             </div>
                             <div>
                                 <h4 class="font-bold text-on-surface mb-1">Single Rendering Context</h4>
-                                <p class="text-sm text-on-surface-variant">2D UI components (built with Lit) and 3D scenes share the same WebGL context — no iframes, no portals, no compromises.</p>
+                                <p class="text-sm text-on-surface-variant">Sprites, UI controls and 3D meshes are all Three.js scene nodes. 2D draws in an orthographic overlay pass over the same scene — draw order follows the node tree, Godot-style. No iframes, no second canvas.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4 p-4 bg-surface-container rounded-lg border border-outline-variant/10">
@@ -189,7 +189,7 @@
                             </div>
                             <div>
                                 <h4 class="font-bold text-on-surface mb-1">Zero-Overhead Interoperability</h4>
-                                <p class="text-sm text-on-surface-variant">UI elements can be projected into 3D space or wrap 3D objects. Blur effects, transforms, and animations apply uniformly.</p>
+                                <p class="text-sm text-on-surface-variant">Pin 2D HUD to any 3D target, drive fixed canvas layers, and apply the same shader effects and post-processing across 2D and 3D. One pipeline, one frame.</p>
                             </div>
                         </div>
                     </div>
@@ -243,63 +243,62 @@
                     creatives and full 3D scenes.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                <!-- Feature 1: AI Asset Creation -->
+                <!-- Feature 1: Build with AI Agents -->
                 <div
                     class="md:col-span-8 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
                     <div class="flex flex-col md:flex-row gap-8 h-full">
                         <div class="flex-1">
                             <svg class="w-8 h-8 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                            <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface">AI-Powered Asset Creation
-                                &amp; Optimization</h3>
+                            <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface">Build Games with AI Agents
+                            </h3>
                             <p class="text-on-surface-variant text-sm leading-relaxed mb-6">
-                                Cut creative weight by up to 90% without losing visual fidelity. Our AI agent handles
-                                mesh decimation and Draco compression for 3D, plus sprite atlas packing and adaptive
-                                texture compression for 2D — automatically.
+                                Every new project scaffolds an agent workflow — <code class="text-primary">AGENTS.md</code>,
+                                bundled skills and a live HTTP API. Open the folder in Claude Code or any agent app, hand it
+                                a game-design doc, and it writes the TypeScript components, assembles scenes, then reloads,
+                                screenshots and reads logs over remote preview to iterate on its own.
                             </p>
                             <div class="flex flex-wrap gap-2">
                                 <span
-                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Draco
-                                    2.0</span>
+                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">GDD → Game</span>
                                 <span
-                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Auto-Retopo</span>
+                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">AGENTS.md</span>
                                 <span
-                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">LOD
-                                    Gen</span>
+                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Agent HTTP API</span>
                                 <span
-                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Sprite
-                                    Atlas</span>
+                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Screenshots &amp; Logs</span>
                             </div>
                         </div>
                         <div class="flex-1 bg-surface-container-lowest rounded p-4 border border-outline-variant/10">
                             <picture>
                                 <source srcset="media/ai-asset-schematic.webp" type="image/webp">
                                 <img class="w-full h-full object-cover rounded opacity-80"
-                                    alt="Technical schematic showing a 3D robot model being optimized from high poly to low poly mesh with statistics overlays"
+                                    alt="Abstract schematic of an AI agent reading a game-design document and wiring up scene nodes and TypeScript components"
                                     src="media/ai-asset-schematic.png" width="512" height="512"
                                     loading="lazy" decoding="async" />
                             </picture>
                         </div>
                     </div>
                 </div>
-                <!-- Feature 2: One-Click Publishing -->
+                <!-- Feature 2: Preview & Ship -->
                 <div
                     class="md:col-span-4 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
-                    <svg class="w-8 h-8 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                    <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface">One-Click Network Publishing</h3>
+                    <svg class="w-8 h-8 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface">Preview on Device, Ship as HTML</h3>
                     <p class="text-on-surface-variant text-sm leading-relaxed mb-6">
-                        Instant validation for AppLovin, IronSource, Unity LevelPlay, and Mintegral. No more manual SDK
-                        wrapping.
+                        Scan a QR code to stream the live scene, compiled scripts and assets from the open editor to any
+                        phone — nothing uploaded, changes push on save. Export a single-file playable HTML or an
+                        HTML&nbsp;+&nbsp;assets zip.
                     </p>
                     <div class="space-y-3">
                         <div
                             class="flex items-center justify-between p-2 bg-surface-container-highest rounded text-[10px] font-bold text-on-surface-variant">
-                            <span>UNITY LEVELPLAY</span>
-                            <span class="text-tertiary">VALIDATED</span>
+                            <span>REMOTE PREVIEW</span>
+                            <span class="text-tertiary">QR / LINK</span>
                         </div>
                         <div
                             class="flex items-center justify-between p-2 bg-surface-container-highest rounded text-[10px] font-bold text-on-surface-variant">
-                            <span>APPLOVIN MREC</span>
-                            <span class="text-tertiary">VALIDATED</span>
+                            <span>PLAYABLE HTML</span>
+                            <span class="text-tertiary">1-FILE / ZIP</span>
                         </div>
                     </div>
                 </div>
@@ -309,31 +308,38 @@
                     <svg class="w-8 h-8 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface">Figma for 2D &amp; 3D Games</h3>
                     <p class="text-on-surface-variant text-sm leading-relaxed">
-                        Collaborate in real-time across 2D layouts and 3D scenes. Designers edit materials and sprites
-                        while developers debug logic in the same project. Version control and branching built directly
-                        into the viewport.
+                        Real-time multiplayer editing across 2D layouts and 3D scenes, backed by Yjs CRDT sync. Host
+                        projects in the cloud, invite guests with a share link — no account needed — or keep a local
+                        folder mirrored via the File System Access API.
                     </p>
                 </div>
-                <!-- Feature 4: Asset Library -->
+                <!-- Feature 4: Complete Engine -->
                 <div
                     class="md:col-span-7 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
                     <div class="flex flex-col md:flex-row gap-8 items-center">
                         <div class="flex-1">
                             <svg class="w-8 h-8 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                            <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface">AI Compositor &amp;
-                                Library</h3>
-                            <p class="text-on-surface-variant text-sm leading-relaxed">
-                                Access 10k+ pre-optimized assets — low-poly 3D models and 2D sprite packs. Use natural
-                                language to compose scenes: "Add a cyberpunk street with neon signs and rainy floor
-                                reflections."
+                            <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface">A Complete Engine,
+                                Batteries Included</h3>
+                            <p class="text-on-surface-variant text-sm leading-relaxed mb-4">
+                                A keyframe animation timeline, Cinemachine-lite virtual cameras, a cutscene director,
+                                juice &amp; time-scale, a 3-bus audio mixer, per-node shader effects, post-processing,
+                                GPU particles, localization and ECS instancing — ready to use, not hand-rolled.
                             </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Animation</span>
+                                <span class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Cutscenes</span>
+                                <span class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Shaders</span>
+                                <span class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Particles</span>
+                                <span class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">i18n</span>
+                            </div>
                         </div>
                         <div
                             class="w-full md:w-48 h-32 bg-surface-container-lowest rounded border border-outline-variant/20 overflow-hidden">
                             <picture>
                                 <source srcset="media/asset-library-grid.webp" type="image/webp">
                                 <img class="w-full h-full object-cover"
-                                    alt="Grid view of 3D assets library including icons for stylized trees, characters, and UI elements in a dark mode interface"
+                                    alt="Grid of engine building blocks — animation, cameras, audio, shader effects, particles and localization"
                                     src="media/asset-library-grid.png" width="512" height="512"
                                     loading="lazy" decoding="async" />
                             </picture>
@@ -489,7 +495,7 @@ entity.addComponent(Collider);</code></pre>
                         <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
                                 href="#">Discord</a></li>
                         <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
-                                href="#">GitHub</a></li>
+                                href="https://github.com/pix3dev/pix3" target="_blank" rel="noopener noreferrer">GitHub</a></li>
                         <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
                                 href="#">Twitter</a></li>
                     </ul>
