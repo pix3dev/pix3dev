@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pix3.dev/sitemap.xml

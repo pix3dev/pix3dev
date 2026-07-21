@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "generate": "node generate-pages.js",
+    "predev": "node generate-pages.js",
+    "prebuild": "node generate-pages.js",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",

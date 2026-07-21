@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pix3 | Редактор игровой рекламы 2D и 3D на WebGL</title>
+    <meta name="description" content="Профессиональный WebGL-редактор для 2D и 3D игровой рекламы и мини-игр — ИИ-сценарии, совместная работа в реальном времени, единый конвейер рендеринга.">
+    <link rel="canonical" href="https://pix3.dev/ru/">
+    <link rel="alternate" hreflang="x-default" href="https://pix3.dev/">
+    <link rel="alternate" hreflang="en" href="https://pix3.dev/">
+    <link rel="alternate" hreflang="ru" href="https://pix3.dev/ru/">
+    <link rel="icon" type="image/webp" href="/media/icon.webp">
+    <!-- Open Graph / Social Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Pix3 | Редактор игровой рекламы 2D и 3D на WebGL">
+    <meta property="og:description" content="Профессиональный WebGL-редактор для 2D и 3D игровой рекламы и мини-игр — ИИ-сценарии, совместная работа в реальном времени, единый конвейер рендеринга.">
+    <meta property="og:url" content="https://pix3.dev/ru/">
+    <meta property="og:site_name" content="Pix3">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:image" content="https://pix3.dev/media/editor-interface.jpg">
+    <meta property="og:image:secure_url" content="https://pix3.dev/media/editor-interface.jpg">
+    <meta property="og:image:alt" content="Превью интерфейса редактора Pix3">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pix3 | Редактор игровой рекламы 2D и 3D на WebGL">
+    <meta name="twitter:description" content="Профессиональный WebGL-редактор для 2D и 3D игровой рекламы и мини-игр — ИИ-сценарии, совместная работа в реальном времени, единый конвейер рендеринга.">
+    <meta name="twitter:image" content="https://pix3.dev/media/editor-interface.jpg">
+    <meta name="twitter:image:alt" content="Превью интерфейса редактора Pix3">
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="/fonts/spacegrotesk.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" as="image" href="/media/editor-interface.jpg"
+        imagesrcset="/media/editor-interface.webp" type="image/webp" fetchpriority="high">
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="selection:bg-primary selection:text-on-primary-container overflow-x-hidden">
+    <!-- Yandex.Metrika counter -->
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/108302071" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- Top Navigation Bar -->
+    <nav class="fixed top-0 w-full z-50 bg-zinc-950/60 backdrop-blur-xl no-line-rule bg-zinc-900/50">
+        <div class="flex justify-between items-center px-8 h-16 max-w-screen-2xl mx-auto w-full">
+            <div class="flex items-center space-x-4">
+                <a href="/" class="flex items-center">
+                    <picture>
+                        <source srcset="/media/splash-logo.webp" type="image/webp">
+                        <img src="/media/splash-logo.png" alt="Pix3" class="h-8 w-auto"
+                            width="756" height="300" decoding="async">
+                    </picture>
+                </a>
+                <a href="https://github.com/pix3dev/pix3" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center">
+                    <img src="https://img.shields.io/github/stars/pix3dev/pix3?style=social" alt="GitHub stars" class="h-6">
+                </a>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 font-['Space_Grotesk'] text-sm tracking-tight">
+                <a class="text-zinc-400 font-medium hover:text-yellow-400 transition-colors duration-300"
+                    href="#">Продукт</a>
+                <a class="text-zinc-400 font-medium hover:text-yellow-400 transition-colors duration-300"
+                    href="#">Возможности</a>
+                <a class="text-zinc-400 font-medium hover:text-yellow-400 transition-colors duration-300"
+                    href="#">Витрина</a>
+                <a class="text-zinc-400 font-medium hover:text-yellow-400 transition-colors duration-300"
+                    href="#">Цены</a>
+            </div>
+            <div class="flex items-center gap-0.5 text-xs font-headline font-bold tracking-wider">
+                <a href="/" class="text-zinc-500 hover:text-yellow-400 transition-colors px-1.5 py-1">EN</a>
+                <span class="text-zinc-700 select-none">|</span>
+                <a href="/ru/" aria-current="page" class="text-on-surface transition-colors px-1.5 py-1">RU</a>
+            </div>
+            <a href="https://editor.pix3.dev"
+                class="bg-primary text-on-primary px-5 py-2 rounded-sm font-semibold text-sm scale-95 active:scale-90 transition-transform uppercase tracking-wider inline-flex items-center gap-2">
+                Открыть редактор
+            </a>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 px-8 hero-gradient overflow-hidden">
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-highest border border-outline-variant/20 mb-8">
+                <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                <span class="text-[10px] font-bold tracking-[0.2em] text-on-surface-variant uppercase">Бета-доступ открыт</span>
+            </div>
+            <h1
+                class="font-headline text-5xl md:text-7xl font-bold tracking-tight text-on-surface max-w-4xl mx-auto mb-6">
+                Главный редактор для <span class="text-primary italic">2D &amp; 3D игровой рекламы</span> и мини-игр
+            </h1>
+            <p class="font-body text-lg text-on-surface-variant max-w-2xl mx-auto mb-10 leading-relaxed">
+                WebGL-редактор без установки с единым конвейером 2D &amp; 3D. Создавайте игровую рекламу и мини-игры прямо в браузере — без скачивания, без настройки, без ожидания.
+            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-8">
+                <a href="https://editor.pix3.dev"
+                    class="w-full md:w-auto px-8 py-4 bg-primary text-on-primary font-bold rounded-sm text-sm uppercase tracking-widest hover:brightness-110 transition-all inline-flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    Открыть редактор
+                </a>
+                <button
+                    class="w-full md:w-auto px-8 py-4 border border-outline-variant/30 text-on-surface font-bold rounded-sm text-sm uppercase tracking-widest hover:bg-surface-container-highest transition-all">
+                    Смотреть демо
+                </button>
+            </div>
+            <div class="flex items-center justify-center gap-2 text-sm text-on-surface-variant mb-20">
+                <svg class="w-5 h-5 text-tertiary" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span>Без установки • Работает в любом браузере • Старт за 3 секунды</span>
+            </div>
+            <!-- Main Editor Visual -->
+            <div class="relative group">
+                <div
+                    class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-tertiary/20 rounded-xl blur-2xl opacity-50 group-hover:opacity-75 transition-opacity">
+                </div>
+                <div
+                    class="relative bg-surface-container-lowest rounded-lg border border-outline-variant/20 overflow-hidden shadow-2xl">
+                    <picture>
+                        <source srcset="/media/editor-interface.webp" type="image/webp">
+                        <img class="w-full h-auto object-cover opacity-90"
+                            alt="Профессиональный интерфейс редактора Pix3: 3D-сцена с текстурированными блоками, иерархия объектов, браузер ассетов с превью моделей и детальный инспектор."
+                            src="/media/editor-interface.jpg" width="1469" height="791"
+                            fetchpriority="high" decoding="async" />
+                    </picture>
+                    <!-- Floating Tech Accents -->
+                    <div class="absolute top-4 left-4 glass-panel p-3 rounded border border-white/5 hidden md:block">
+                        <div class="flex items-center gap-4">
+                            <div class="flex flex-col items-start">
+                                <span class="text-[10px] text-primary font-bold uppercase tracking-tighter">FPS</span>
+                                <span class="text-xl font-headline font-bold">120.0</span>
+                            </div>
+                            <div class="w-px h-8 bg-outline-variant/30"></div>
+                            <div class="flex flex-col items-start">
+                                <span class="text-[10px] text-tertiary font-bold uppercase tracking-tighter">Draw
+                                    Calls</span>
+                                <span class="text-xl font-headline font-bold">42</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Tech Specs Strip -->
+    <div class="bg-surface-container-low border-y border-outline-variant/10 py-6">
+        <div class="max-w-7xl mx-auto px-8 flex flex-wrap justify-center md:justify-between items-center gap-8">
+            <div
+                class="flex items-center gap-3 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <span class="font-headline font-bold text-sm tracking-widest uppercase">Движок ThreeJS</span>
+            </div>
+            <div
+                class="flex items-center gap-3 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <span class="font-headline font-bold text-sm tracking-widest uppercase">Встроенный ИИ-агент</span>
+            </div>
+            <div
+                class="flex items-center gap-3 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                <span class="font-headline font-bold text-sm tracking-widest uppercase">Веб-приложение PWA</span>
+            </div>
+            <div
+                class="flex items-center gap-3 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                <span class="font-headline font-bold text-sm tracking-widest uppercase">WebGL 2.0 на стороне клиента</span>
+            </div>
+        </div>
+    </div>
+    <!-- Unified 2D/3D Rendering Pipeline -->
+    <section class="py-24 px-8 bg-surface-container-low">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-block px-3 py-1 bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest mb-6">
+                        Архитектура</div>
+                    <h2 class="font-headline text-4xl font-bold mb-6 text-on-surface">Единый конвейер <span class="text-primary">рендеринга 2D/3D</span></h2>
+                    <p class="text-on-surface-variant text-lg leading-relaxed mb-8">
+                        В отличие от Unity или Godot, где UI и 3D работают в разных контекстах рендеринга, Pix3 использует единый конвейер Three.js для всего. Без сложных переходов, без переключения контекста — только бесшовный гибридный рендеринг.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-4 bg-surface-container rounded-lg border border-outline-variant/10">
+                            <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-on-surface mb-1">Единый контекст рендеринга</h4>
+                                <p class="text-sm text-on-surface-variant">Компоненты 2D UI (на базе Lit) и 3D-сцены используют один WebGL-контекст — без iframe, без порталов, без компромиссов.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-surface-container rounded-lg border border-outline-variant/10">
+                            <div class="w-10 h-10 rounded-lg bg-tertiary/20 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-on-surface mb-1">Нулевые накладные расходы</h4>
+                                <p class="text-sm text-on-surface-variant">UI-элементы можно проецировать в 3D-пространство или оборачивать 3D-объекты. Blur-эффекты, трансформации и анимации применяются единообразно.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/20 overflow-hidden p-6">
+                        <div class="flex items-center gap-2 mb-4 border-b border-outline-variant/20 pb-3">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <span class="ml-2 text-xs text-zinc-500 font-mono">player-controller.ts</span>
+                        </div>
+                        <pre class="text-xs md:text-sm font-mono text-zinc-300 overflow-x-auto"><code><span class="text-purple-400">@autoload</span>()
+<span class="text-purple-400">export class</span> <span class="text-yellow-300">PlayerController</span> <span class="text-purple-400">extends</span> <span class="text-blue-300">Component</span> {
+    
+    <span class="text-zinc-500">// Unity/Godot-style lifecycle hooks</span>
+    <span class="text-purple-400">onStart</span>() {
+        <span class="text-purple-400">this</span>.velocity = <span class="text-blue-300">vec3</span>.zero();
+        <span class="text-purple-400">this</span>.speed = <span class="text-orange-300">10</span>;
+    }
+
+    <span class="text-purple-400">onUpdate</span>(<span class="text-blue-300">dt</span>: <span class="text-green-300">number</span>) {
+        <span class="text-purple-400">const</span> input = <span class="text-blue-300">Input</span>.<span class="text-yellow-300">getAxis</span>(<span class="text-green-300">"Movement"</span>);
+        
+        <span class="text-purple-400">this</span>.entity.<span class="text-yellow-300">translate</span>(input.<span class="text-yellow-300">mul</span>(<span class="text-purple-400">this</span>.speed * dt));
+        
+        <span class="text-purple-400">if</span> (<span class="text-blue-300">Input</span>.<span class="text-yellow-300">isJustPressed</span>(<span class="text-green-300">"Jump"</span>)) {
+            <span class="text-purple-400">this</span>.<span class="text-yellow-300">jump</span>();
+        }
+    }
+
+    <span class="text-purple-400">@property</span>({ <span class="text-yellow-300">range</span>: [<span class="text-orange-300">1</span>, <span class="text-orange-300">20</span>] })
+    speed: <span class="text-green-300">number</span> = <span class="text-orange-300">10</span>;
+}</code></pre>
+                    </div>
+                    <div class="absolute -bottom-4 -right-4 bg-surface-container-highest px-4 py-2 rounded-lg border border-outline-variant/20 shadow-xl">
+                        <span class="text-xs text-on-surface-variant">TypeScript</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Features Bento Grid -->
+    <section class="py-24 px-8 bg-surface">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16">
+                <h2 class="font-headline text-4xl font-bold mb-4">Точная инженерия для <span
+                        class="text-primary">игровой рекламы</span></h2>
+                <p class="text-on-surface-variant max-w-xl">Каждый пиксель важен, когда у вас есть 5 секунд на захват внимания пользователя. Pix3 создан для технической алхимии конверсии — как для 2D-спрайтов, так и для полноценных 3D-сцен.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Feature 1: AI Asset Creation -->
+                <div
+                    class="md:col-span-8 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
+                    <div class="flex flex-col md:flex-row gap-8 h-full">
+                        <div class="flex-1">
+                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                            <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface mt-4">ИИ-создание и оптимизация ассетов</h3>
+                            <p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                                Сократите вес креативов до 90% без потери качества. ИИ-агент выполняет децимацию полигонов и Draco-компрессию для 3D, а также упаковку спрайт-атласов и адаптивное сжатие текстур для 2D — автоматически.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Draco 2.0</span>
+                                <span
+                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Auto-Retopo</span>
+                                <span
+                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">LOD Gen</span>
+                                <span
+                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Sprite Atlas</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 bg-surface-container-lowest rounded p-4 border border-outline-variant/10">
+                            <picture>
+                                <source srcset="/media/ai-asset-schematic.webp" type="image/webp">
+                                <img class="w-full h-full object-cover rounded opacity-80"
+                                    alt="Техническая схема оптимизации 3D-модели робота от высокополигональной до низкополигональной сетки с отображением статистики"
+                                    src="/media/ai-asset-schematic.png" width="512" height="512"
+                                    loading="lazy" decoding="async" />
+                            </picture>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feature 2: One-Click Publishing -->
+                <div
+                    class="md:col-span-4 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
+                    <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                    <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface mt-4">Публикация в сеть одним кликом</h3>
+                    <p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                        Мгновенная валидация для AppLovin, IronSource, Unity LevelPlay и Mintegral. Больше никакой ручной обёртки SDK.
+                    </p>
+                    <div class="space-y-3">
+                        <div
+                            class="flex items-center justify-between p-2 bg-surface-container-highest rounded text-[10px] font-bold text-on-surface-variant">
+                            <span>UNITY LEVELPLAY</span>
+                            <span class="text-tertiary">VALIDATED</span>
+                        </div>
+                        <div
+                            class="flex items-center justify-between p-2 bg-surface-container-highest rounded text-[10px] font-bold text-on-surface-variant">
+                            <span>APPLOVIN MREC</span>
+                            <span class="text-tertiary">VALIDATED</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feature 3: Real-Time Collab -->
+                <div
+                    class="md:col-span-5 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
+                    <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface mt-4">Figma для 2D &amp; 3D-игр</h3>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">
+                        Совместная работа в реальном времени над 2D-макетами и 3D-сценами. Дизайнеры редактируют материалы и спрайты, разработчики отлаживают логику — в одном проекте. Контроль версий и ветвление прямо во вьюпорте.
+                    </p>
+                </div>
+                <!-- Feature 4: Asset Library -->
+                <div
+                    class="md:col-span-7 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
+                    <div class="flex flex-col md:flex-row gap-8 items-center">
+                        <div class="flex-1">
+                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                            <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface mt-4">ИИ-компоновщик и библиотека</h3>
+                            <p class="text-on-surface-variant text-sm leading-relaxed">
+                                Доступ к 10 000+ предоптимизированных ассетов — низкополигональные 3D-модели и 2D-спрайт-паки. Компонуйте сцены на естественном языке: «Добавь киберпанк-улицу с неоновыми вывесками и отражениями на мокром полу».
+                            </p>
+                        </div>
+                        <div
+                            class="w-full md:w-48 h-32 bg-surface-container-lowest rounded border border-outline-variant/20 overflow-hidden">
+                            <picture>
+                                <source srcset="/media/asset-library-grid.webp" type="image/webp">
+                                <img class="w-full h-full object-cover"
+                                    alt="Сеточный вид библиотеки 3D-ассетов с иконками стилизованных деревьев, персонажей и UI-элементов в тёмном интерфейсе"
+                                    src="/media/asset-library-grid.png" width="512" height="512"
+                                    loading="lazy" decoding="async" />
+                            </picture>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Developer Experience -->
+    <section class="py-24 px-8 bg-surface">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-block px-3 py-1 bg-tertiary/10 border border-tertiary/20 text-tertiary text-[10px] font-bold uppercase tracking-widest mb-6">
+                    Опыт разработчика</div>
+                <h2 class="font-headline text-4xl font-bold mb-4 text-on-surface">Знакомые паттерны, <span class="text-primary">скорость веб-платформы</span></h2>
+                <p class="text-on-surface-variant max-w-2xl mx-auto">Если вы работали с Unity, Godot или Three.js — вы уже знаете Pix3. Никаких чёрных ящиков, никаких проприетарных скриптов.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-surface-container-low rounded-lg p-6 border border-outline-variant/10">
+                    <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    </div>
+                    <h3 class="font-headline text-xl font-bold mb-3 text-on-surface">TypeScript прежде всего</h3>
+                    <p class="text-sm text-on-surface-variant mb-4">Полная типобезопасность с автодополнением в IDE. Логика игры — это просто TypeScript-классы с декораторами.</p>
+                    <pre class="text-xs font-mono text-zinc-400 bg-surface-container-lowest p-3 rounded border border-outline-variant/10"><code>@property()
+speed: number = 10;</code></pre>
+                </div>
+                <div class="bg-surface-container-low rounded-lg p-6 border border-outline-variant/10">
+                    <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <h3 class="font-headline text-xl font-bold mb-3 text-on-surface">Автозагружаемые синглтоны</h3>
+                    <p class="text-sm text-on-surface-variant mb-4">Просто добавьте @autoload() — ваши сервисы доступны везде мгновенно, как автозагрузки в Godot.</p>
+                    <pre class="text-xs font-mono text-zinc-400 bg-surface-container-lowest p-3 rounded border border-outline-variant/10"><code>@autoload()
+class AudioManager {
+  playSfx(name: string) {}
+}</code></pre>
+                </div>
+                <div class="bg-surface-container-low rounded-lg p-6 border border-outline-variant/10">
+                    <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                    </div>
+                    <h3 class="font-headline text-xl font-bold mb-3 text-on-surface">Система компонентов</h3>
+                    <p class="text-sm text-on-surface-variant mb-4">Компонентная модель в духе ECS. Каждая сущность — это набор поведений, которые можно компоновать.</p>
+                    <pre class="text-xs font-mono text-zinc-400 bg-surface-container-lowest p-3 rounded border border-outline-variant/10"><code>entity.addComponent(RigidBody);
+entity.addComponent(Collider);</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Future Section -->
+    <section class="py-24 px-8 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-tertiary/5 blur-[120px] -z-10 rounded-full"></div>
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
+            <div class="flex-1">
+                <div
+                    class="inline-block px-3 py-1 bg-tertiary/10 border border-tertiary/20 text-tertiary text-[10px] font-bold uppercase tracking-widest mb-6">
+                    Скоро</div>
+                <h2 class="font-headline text-4xl md:text-5xl font-bold mb-6">Будущее <span
+                        class="text-white">Pix3</span></h2>
+                <p class="text-on-surface-variant text-lg leading-relaxed mb-8">
+                    Мы выходим за рамки рекламы. Pix3 превращается в комплексный движок для эпохи возрождения веб-игр.
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-4">
+                        <div class="mt-1 w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
+                            <svg class="w-3 h-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div>
+                            <span class="font-bold text-on-surface block">Мгновенные веб-порталы</span>
+                            <p class="text-sm text-on-surface-variant">Публикуйте напрямую на Poki, CrazyGames и Яндекс Игры с автоматической оптимизацией ранжирования.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <div class="mt-1 w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
+                            <svg class="w-3 h-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div>
+                            <span class="font-bold text-on-surface block">Нативные оболочки для магазинов</span>
+                            <p class="text-sm text-on-surface-variant">Экспорт в iOS, Android и Steam через высокопроизводительные нативные мосты.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex-1 relative">
+                <div
+                    class="aspect-video bg-surface-container rounded-xl border border-outline-variant/20 overflow-hidden">
+                    <picture>
+                        <source srcset="/media/bridge-visual.webp" type="image/webp">
+                        <img class="w-full h-full object-cover grayscale opacity-50"
+                            alt="Абстрактная визуализация цифрового моста, соединяющего браузер с иконками магазинов приложений в футуристическом технологическом стиле"
+                            src="/media/bridge-visual.png" width="512" height="512"
+                            loading="lazy" decoding="async" />
+                    </picture>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <svg class="w-24 h-24 text-primary opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.585 15.585a6.215 6.215 0 001.353-1.353L21 10.322a3.522 3.522 0 10-4.981-4.981l-3.91 3.91a6.215 6.215 0 00-1.353 1.353m5.829 5.829a6.215 6.215 0 01-1.353 1.353L10.322 21a3.522 3.522 0 11-4.981-4.981l3.91-3.91a6.215 6.215 0 011.353-1.353m5.829 5.829a6.215 6.215 0 11-5.83-5.83"></path></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Final CTA -->
+    <section class="py-24 px-8">
+        <div class="max-w-5xl mx-auto bg-primary rounded-lg p-12 text-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('/media/carbon-fibre.webp')]">
+            </div>
+            <h2 class="font-headline text-4xl font-black text-on-primary mb-6 relative z-10">ГОТОВЫ К ПОДЪЁМУ?</h2>
+            <p class="text-on-primary/80 font-medium mb-10 max-w-xl mx-auto relative z-10">
+                Вступайте в бету сегодня и присоединяйтесь к топ-1% творческих студий, строящих интерактивный 2D &amp; 3D-контент следующего поколения.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+                <button
+                    class="px-10 py-4 bg-surface text-white font-bold rounded-sm uppercase tracking-widest text-sm hover:bg-surface-bright transition-colors">
+                    Вступить в бету
+                </button>
+                <button
+                    class="px-10 py-4 border-2 border-on-primary text-on-primary font-bold rounded-sm uppercase tracking-widest text-sm hover:bg-on-primary/10 transition-colors">
+                    Связаться с продажами
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-zinc-950 w-full py-12 px-8 border-t border-zinc-900/20 tonal-depth-shift bg-zinc-900/20">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="text-lg font-black text-zinc-200 mb-4 font-headline uppercase">Pix3</div>
+                    <p class="font-['Inter'] text-xs text-zinc-500 leading-relaxed max-w-[200px]">
+                        Технический редактор для высокопроизводительных 2D &amp; 3D-креативов. Создан для разработчика-алхимика.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4">Платформа</h4>
+                    <ul class="space-y-2">
+                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
+                                href="#">Документация</a></li>
+                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
+                                href="#">Витрина</a></li>
+                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
+                                href="#">Цены</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4">Сообщество</h4>
+                    <ul class="space-y-2">
+                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
+                                href="#">Discord</a></li>
+                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
+                                href="#">GitHub</a></li>
+                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
+                                href="#">Twitter</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4">Компания</h4>
+                    <ul class="space-y-2">
+                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
+                                href="#">Вакансии</a></li>
+                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
+                                href="#">Конфиденциальность</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-zinc-900/50 flex flex-col md:flex-row justify-between items-center gap-4">
+                <span class="font-['Inter'] text-xs text-zinc-500">&copy; 2026 Pix3 Technologies. Создано для технического алхимика.</span>
+                <div class="flex gap-4 items-center">
+                    <a href="/" class="text-zinc-600 hover:text-primary transition-colors text-xs font-headline font-bold tracking-wider">EN</a>
+                    <span class="text-zinc-800 select-none text-xs">|</span>
+                    <a href="/ru/" class="text-primary transition-colors text-xs font-headline font-bold tracking-wider">RU</a>
+                    <span class="w-px h-4 bg-zinc-800"></span>
+                    <svg class="w-5 h-5 text-zinc-700 hover:text-primary transition-colors cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                    <svg class="w-5 h-5 text-zinc-700 hover:text-primary transition-colors cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Yandex.Metrika counter (loaded after first paint) -->
+    <script>
+        (function () {
+            function loadMetrika() {
+                (function (m, e, t, r, i, k, a) {
+                    m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+                    m[i].l = 1 * new Date();
+                    for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+                    k = e.createElement(t); a = e.getElementsByTagName(t)[0]; k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
+                })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=108302071', 'ym');
+                ym(108302071, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: 'dataLayer', referrer: document.referrer, url: location.href, accurateTrackBounce: true, trackLinks: true });
+            }
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(loadMetrika, { timeout: 3000 });
+            } else {
+                window.addEventListener('load', function () { setTimeout(loadMetrika, 1500); });
+            }
+        })();
+    </script>
+</body>
+
+</html>
