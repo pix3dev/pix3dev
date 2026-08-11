@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="en">
+<html class="dark no-js" lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Pix3 | The Technical Alchemist for 2D & 3D Playable Ads</title>
+    <title>Pix3 | The Ultimate Editor for 2D &amp; 3D Playable Ads</title>
     <meta name="description" content="Workstation-grade WebGL editor for 2D and 3D playable ads and mini-games — AI-driven workflows, real-time collaboration, one unified pipeline.">
     <link rel="canonical" href="https://pix3.dev/">
-    <link rel="icon" type="image/webp" href="media/icon.webp">
+    <link rel="alternate" hreflang="x-default" href="https://pix3.dev/">
+    <link rel="alternate" hreflang="en" href="https://pix3.dev/">
+    <link rel="alternate" hreflang="ru" href="https://pix3.dev/ru/">
+    <link rel="icon" type="image/webp" href="/media/icon.webp">
     <!-- Open Graph / Social Preview -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Pix3 | The Technical Alchemist for 2D & 3D Playable Ads">
+    <meta property="og:title" content="Pix3 | The Ultimate Editor for 2D &amp; 3D Playable Ads">
     <meta property="og:description" content="Workstation-grade WebGL editor for 2D and 3D playable ads and mini-games — AI-driven workflows, real-time collaboration, one unified pipeline.">
     <meta property="og:url" content="https://pix3.dev/">
     <meta property="og:site_name" content="Pix3">
@@ -23,503 +26,514 @@
     <meta property="og:image:height" content="630">
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Pix3 | The Technical Alchemist for 2D & 3D Playable Ads">
+    <meta name="twitter:title" content="Pix3 | The Ultimate Editor for 2D &amp; 3D Playable Ads">
     <meta name="twitter:description" content="Workstation-grade WebGL editor for 2D and 3D playable ads and mini-games — AI-driven workflows, real-time collaboration, one unified pipeline.">
     <meta name="twitter:image" content="https://pix3.dev/media/editor-interface.jpg">
     <meta name="twitter:image:alt" content="Pix3 editor interface preview">
     <!-- Preload critical resources -->
-    <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="preload" href="/fonts/spacegrotesk.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" as="image" href="media/editor-interface.jpg"
-        imagesrcset="media/editor-interface.webp" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="/fonts/ibmplexsans-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" as="image" href="/media/editor-interface.jpg"
+        imagesrcset="/media/editor-interface.webp" type="image/webp" fetchpriority="high">
 
     <link rel="stylesheet" href="./style.css">
+    <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 
-<body class="selection:bg-primary selection:text-on-primary-container overflow-x-hidden">
+<body>
     <!-- Yandex.Metrika counter -->
     <noscript>
         <div><img src="https://mc.yandex.ru/watch/108302071" style="position:absolute; left:-9999px;" alt="" /></div>
     </noscript>
-    <!-- Top Navigation Bar -->
-    <nav class="fixed top-0 w-full z-50 bg-zinc-950/60 backdrop-blur-xl no-line-rule bg-zinc-900/50">
-        <div class="flex justify-between items-center px-8 h-16 max-w-screen-2xl mx-auto w-full">
-            <div class="flex items-center space-x-4">
-                <a href="/" class="flex items-center">
-                    <picture>
-                        <source srcset="media/splash-logo.webp" type="image/webp">
-                        <img src="media/splash-logo.png" alt="Pix3" class="h-8 w-auto"
-                            width="756" height="300" decoding="async">
-                    </picture>
-                </a>
-                <a href="https://github.com/pix3dev/pix3" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center">
-                    <img src="https://img.shields.io/github/stars/pix3dev/pix3?style=social" alt="GitHub stars" class="h-6">
-                </a>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header id="hdr">
+        <div class="wrap nav">
+            <a class="logo" href="#top"><span class="mark" aria-hidden="true">P</span>pix<sup>3</sup></a>
+            <nav aria-label="Main navigation">
+                <a href="#pipeline">Product</a>
+                <a href="#features">Features</a>
+                <a href="#dx">Developers</a>
+                <a href="#pricing">Pricing</a>
+            </nav>
+            <span class="sp"></span>
+            <a class="ghost" href="https://github.com/pix3dev/pix3" target="_blank" rel="noopener noreferrer" aria-label="GitHub — 8 GitHub stars">GitHub <span class="n"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.3.7-4.7 4.3 1.3 6.3L12 16.6l-5.6 3.2 1.3-6.3L3 9.2l6.3-.7z"/></svg> 8</span></a>
+            <div class="lang">
+                <a href="/" class="on" aria-current="page" lang="en">EN</a>
+                <span aria-hidden="true">|</span>
+                <a href="/ru/" lang="ru">RU</a>
             </div>
-            <div class="hidden md:flex items-center space-x-8 font-['Space_Grotesk'] text-sm tracking-tight">
-                <a class="text-zinc-400 font-medium hover:text-yellow-400 transition-colors duration-300"
-                    href="#">Product</a>
-                <a class="text-zinc-400 font-medium hover:text-yellow-400 transition-colors duration-300"
-                    href="#">Features</a>
-                <a class="text-zinc-400 font-medium hover:text-yellow-400 transition-colors duration-300"
-                    href="#">Showcase</a>
-                <a class="text-zinc-400 font-medium hover:text-yellow-400 transition-colors duration-300"
-                    href="#">Pricing</a>
-            </div>
-            <a href="https://editor.pix3.dev"
-                class="bg-primary text-on-primary px-5 py-2 rounded-sm font-semibold text-sm scale-95 active:scale-90 transition-transform uppercase tracking-wider inline-flex items-center gap-2">
-                Open Editor
-            </a>
+            <a class="btn p sm" href="https://editor.pix3.dev">Open Editor</a>
+            <button class="burger" type="button" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
         </div>
-    </nav>
-    <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 px-8 hero-gradient overflow-hidden">
-        <div class="max-w-7xl mx-auto text-center relative z-10">
-            <div
-                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-highest border border-outline-variant/20 mb-8">
-                <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                <span class="text-[10px] font-bold tracking-[0.2em] text-on-surface-variant uppercase">Beta Access Now
-                    Open</span>
+    </header>
+
+    <!-- Mobile drawer (below 640px) -->
+    <div class="drawer" id="drawer" aria-hidden="true">
+        <div class="wrap">
+            <div class="dhead">
+                <a class="logo" href="#top"><span class="mark" aria-hidden="true">P</span>pix<sup>3</sup></a>
+                <span class="sp"></span>
+                <button class="burger" type="button" id="drawer-close" aria-label="Close menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
             </div>
-            <h1
-                class="font-headline text-5xl md:text-7xl font-bold tracking-tight text-on-surface max-w-4xl mx-auto mb-6">
-                The Ultimate Editor for <span class="text-primary italic">2D &amp; 3D Playable Ads</span> and Mini-Games
-            </h1>
-            <p class="font-body text-lg text-on-surface-variant max-w-2xl mx-auto mb-10 leading-relaxed">
-                Zero-install WebGL editor with a unified 2D &amp; 3D pipeline. Build playable ads and mini-games
-                directly in your browser — no downloads, no setup, no wait.
-            </p>
-            <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-8">
-                <a href="https://editor.pix3.dev"
-                    class="w-full md:w-auto px-8 py-4 bg-primary text-on-primary font-bold rounded-sm text-sm uppercase tracking-widest hover:brightness-110 transition-all inline-flex items-center justify-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    Open Editor in Browser
-                </a>
-                <button
-                    class="w-full md:w-auto px-8 py-4 border border-outline-variant/30 text-on-surface font-bold rounded-sm text-sm uppercase tracking-widest hover:bg-surface-container-highest transition-all">
-                    Watch Demo
-                </button>
+            <nav aria-label="Main navigation">
+                <a href="#pipeline" data-nav-close>Product</a>
+                <a href="#features" data-nav-close>Features</a>
+                <a href="#dx" data-nav-close>Developers</a>
+                <a href="#pricing" data-nav-close>Pricing</a>
+            </nav>
+            <div class="dfoot">
+                <a class="btn p" href="https://editor.pix3.dev">Open Editor</a>
+                <a class="ghost" href="https://github.com/pix3dev/pix3" target="_blank" rel="noopener noreferrer" aria-label="GitHub — 8 GitHub stars">GitHub <span class="n"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.7 5.9 6.3.7-4.7 4.3 1.3 6.3L12 16.6l-5.6 3.2 1.3-6.3L3 9.2l6.3-.7z"/></svg> 8</span></a>
+                <div class="lang">
+                <a href="/" class="on" aria-current="page" lang="en">EN</a>
+                <span aria-hidden="true">|</span>
+                <a href="/ru/" lang="ru">RU</a>
             </div>
-            <div class="flex items-center justify-center gap-2 text-sm text-on-surface-variant mb-20">
-                <svg class="w-5 h-5 text-tertiary" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                <span>Zero install • Works in any browser • Start in 3 seconds</span>
-            </div>
-            <!-- Main Editor Visual -->
-            <div class="relative group">
-                <div
-                    class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-tertiary/20 rounded-xl blur-2xl opacity-50 group-hover:opacity-75 transition-opacity">
-                </div>
-                <div
-                    class="relative bg-surface-container-lowest rounded-lg border border-outline-variant/20 overflow-hidden shadow-2xl">
-                    <picture>
-                        <source srcset="media/editor-interface.webp" type="image/webp">
-                        <img class="w-full h-auto object-cover opacity-90"
-                            alt="Professional Pix3 editor interface showing a 3D scene with textured blocks, scene tree hierarchy, asset browser with model previews, and detailed asset inspector."
-                            src="media/editor-interface.jpg" width="1469" height="791"
-                            fetchpriority="high" decoding="async" />
-                    </picture>
-                    <!-- Floating Tech Accents -->
-                    <div class="absolute top-4 left-4 glass-panel p-3 rounded border border-white/5 hidden md:block">
-                        <div class="flex items-center gap-4">
-                            <div class="flex flex-col items-start">
-                                <span class="text-[10px] text-primary font-bold uppercase tracking-tighter">FPS</span>
-                                <span class="text-xl font-headline font-bold">120.0</span>
-                            </div>
-                            <div class="w-px h-8 bg-outline-variant/30"></div>
-                            <div class="flex flex-col items-start">
-                                <span class="text-[10px] text-tertiary font-bold uppercase tracking-tighter">Draw
-                                    Calls</span>
-                                <span class="text-xl font-headline font-bold">42</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Tech Specs Strip -->
-    <div class="bg-surface-container-low border-y border-outline-variant/10 py-6">
-        <div class="max-w-7xl mx-auto px-8 flex flex-wrap justify-center md:justify-between items-center gap-8">
-            <div
-                class="flex items-center gap-3 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
-                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                <span class="font-headline font-bold text-sm tracking-widest uppercase">ThreeJS Engine</span>
-            </div>
-            <div
-                class="flex items-center gap-3 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
-                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                <span class="font-headline font-bold text-sm tracking-widest uppercase">AI Agent Integrated</span>
-            </div>
-            <div
-                class="flex items-center gap-3 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
-                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                <span class="font-headline font-bold text-sm tracking-widest uppercase">Web-Based PWA</span>
-            </div>
-            <div
-                class="flex items-center gap-3 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
-                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                <span class="font-headline font-bold text-sm tracking-widest uppercase">Client-side WebGL 2.0</span>
             </div>
         </div>
     </div>
-    <!-- Unified 2D/3D Rendering Pipeline -->
-    <section class="py-24 px-8 bg-surface-container-low">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+    <main id="main" tabindex="-1">
+        <!-- Hero -->
+        <div class="hero" id="top">
+            <div class="grid-bg" aria-hidden="true"></div>
+            <div class="wrap">
+                <span class="eyebrow mono"><span class="dot"></span>Beta Access Now Open</span>
+                <h1>The Ultimate Editor for <i>2D &amp; 3D Playable Ads</i> and Mini-Games</h1>
+                <p class="lead">Zero-install WebGL editor with a unified 2D &amp; 3D pipeline. Build playable ads and mini-games directly in your browser — no downloads, no setup, no wait.</p>
+                <div class="cta">
+                    <a class="btn p" href="https://editor.pix3.dev"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Open Editor in Browser</a>
+                    <a class="btn s" href="#demo" id="watch-demo"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Watch Demo</a>
+                </div>
+                <p class="trust">
+                    <span><span class="ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span>Zero install</span>
+                    <span>Works in any browser</span>
+                    <span>Start in 3 seconds</span>
+                    <span>No credit card</span>
+                </p>
+
+                <!-- Editor shot / demo player -->
+                <div class="shot" id="demo">
+                    <div class="frame">
+                        <div class="bar">
+                            <i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>
+                            <span class="t">editor.pix3.dev — main-scene.pix3scene</span>
+                        </div>
+                        <div class="media" id="heromedia" data-video-id="apBppZ5j36o"
+                            data-video-title="Pix3 demo">
+                            <picture>
+                            <source srcset="/media/editor-interface.webp" type="image/webp">
+                            <img src="/media/editor-interface.jpg" alt="Professional Pix3 editor interface showing a 3D scene with textured blocks, scene tree hierarchy, asset browser with model previews, and detailed asset inspector." width="1469" height="791" fetchpriority="high" decoding="async">
+                        </picture>
+                            <button class="play" type="button" id="playbtn" aria-label="Watch demo video">
+                                <span class="pc" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+                                <span class="pl mono">Watch demo</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chip a" aria-hidden="true">
+                        <div class="k">FPS</div>
+                        <div class="v">120.0</div>
+                    </div>
+                    <div class="chip b" aria-hidden="true">
+                        <div class="k">Draw calls</div>
+                        <div class="v">42</div>
+                    </div>
+                    <div class="chip c" aria-hidden="true">
+                        <div class="k">Build size</div>
+                        <div class="v g">−90%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech strip -->
+        <div class="strip">
+            <div class="wrap">
+                <div><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M12 22V12L3 7M12 12l9-5"/></svg>ThreeJS Engine</div>
+                <div><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M5 9h14v9H5zM9 22h6"/><circle cx="9.5" cy="13.5" r="1.2"/><circle cx="14.5" cy="13.5" r="1.2"/></svg>AI Agent Integrated</div>
+                <div><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>Web-Based PWA</div>
+                <div><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 8-4 4 4 4M15 8l4 4-4 4"/></svg>Client-side WebGL 2.0</div>
+            </div>
+        </div>
+
+        <!-- Workflow -->
+        <section class="reveal" id="workflow">
+            <div class="wrap">
+                <div class="head center"><span class="eyebrow mono"><span class="dot"></span>Workflow</span>
+                <h2>Brief to network-ready build,<br>in one browser tab</h2>
+                <p class="lead">No local toolchain, no export dance between DCC, engine and SDK wrapper. Three steps from an empty scene to a validated creative.</p>
+            </div>
+                <div class="steps">
+                    <div class="step">
+                        <div class="num">01 / Compose</div>
+                        <h3>Open the editor and drop in assets</h3>
+                        <p>Start from 10k+ pre-optimized 3D models and 2D sprite packs, or compose a scene with natural language. 2D layouts and 3D scenes live in the same project.</p>
+                        <div class="meta">Start in 3 seconds</div>
+                    </div>
+                    <div class="step">
+                        <div class="num">02 / Build logic</div>
+                        <h3>Write TypeScript you already know</h3>
+                        <p>Unity- and Godot-style lifecycle hooks, components and autoloads — with full type safety and IDE autocomplete. No proprietary scripting.</p>
+                        <div class="meta">Familiar patterns</div>
+                    </div>
+                    <div class="step">
+                        <div class="num">03 / Ship</div>
+                        <h3>Publish with one click</h3>
+                        <p>The AI agent cuts creative weight by up to 90%, then Pix3 validates the build for AppLovin, IronSource, Unity LevelPlay and Mintegral. No manual SDK wrapping.</p>
+                        <div class="meta">Validated output</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture / pipeline -->
+        <section class="reveal section-tight" id="pipeline">
+            <div class="wrap two">
                 <div>
-                    <div class="inline-block px-3 py-1 bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest mb-6">
-                        Architecture</div>
-                    <h2 class="font-headline text-4xl font-bold mb-6 text-on-surface">Unified 2D/3D <span class="text-primary">Rendering Pipeline</span></h2>
-                    <p class="text-on-surface-variant text-lg leading-relaxed mb-8">
-                        Unlike Unity or Godot where UI and 3D live in separate rendering contexts, Pix3 uses a single Three.js pipeline for everything. No complex transitions, no context switching — just seamless hybrid rendering.
-                    </p>
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-4 p-4 bg-surface-container rounded-lg border border-outline-variant/10">
-                            <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
-                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                            </div>
+                    <div class="head"><span class="eyebrow mono"><span class="dot"></span>Architecture</span>
+                <h2>Unified 2D/3D <span class="em">Rendering Pipeline</span></h2>
+                <p class="lead">Unlike Unity or Godot where UI and 3D live in separate rendering contexts, Pix3 uses a single Three.js pipeline for everything. No complex transitions, no context switching — just seamless hybrid rendering.</p>
+            </div>
+                    <div class="feats">
+                        <div class="feat">
+                            <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg></span>
                             <div>
-                                <h4 class="font-bold text-on-surface mb-1">Single Rendering Context</h4>
-                                <p class="text-sm text-on-surface-variant">Sprites, UI controls and 3D meshes are all Three.js scene nodes. 2D draws in an orthographic overlay pass over the same scene — draw order follows the node tree, Godot-style. No iframes, no second canvas.</p>
+                                <h3>Single Rendering Context</h3>
+                                <p>2D UI components (built with Lit) and 3D scenes share the same WebGL context — no iframes, no portals, no compromises.</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-4 p-4 bg-surface-container rounded-lg border border-outline-variant/10">
-                            <div class="w-10 h-10 rounded-lg bg-tertiary/20 flex items-center justify-center flex-shrink-0">
-                                <svg class="w-6 h-6 text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                            </div>
+                        <div class="feat">
+                            <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18"/></svg></span>
                             <div>
-                                <h4 class="font-bold text-on-surface mb-1">Zero-Overhead Interoperability</h4>
-                                <p class="text-sm text-on-surface-variant">Pin 2D HUD to any 3D target, drive fixed canvas layers, and apply the same shader effects and post-processing across 2D and 3D. One pipeline, one frame.</p>
+                                <h3>Zero-Overhead Interoperability</h3>
+                                <p>UI elements can be projected into 3D space or wrap 3D objects. Blur effects, transforms, and animations apply uniformly.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="relative">
-                    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/20 overflow-hidden p-6">
-                        <div class="flex items-center gap-2 mb-4 border-b border-outline-variant/20 pb-3">
-                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                            <span class="ml-2 text-xs text-zinc-500 font-mono">player-controller.ts</span>
-                        </div>
-                        <pre class="text-xs md:text-sm font-mono text-zinc-300 overflow-x-auto"><code><span class="text-purple-400">@autoload</span>()
-<span class="text-purple-400">export class</span> <span class="text-yellow-300">PlayerController</span> <span class="text-purple-400">extends</span> <span class="text-blue-300">Component</span> {
-    
-    <span class="text-zinc-500">// Unity/Godot-style lifecycle hooks</span>
-    <span class="text-purple-400">onStart</span>() {
-        <span class="text-purple-400">this</span>.velocity = <span class="text-blue-300">vec3</span>.zero();
-        <span class="text-purple-400">this</span>.speed = <span class="text-orange-300">10</span>;
+                <div class="code">
+                    <div class="bar">
+                        <i class="r" aria-hidden="true"></i><i class="y" aria-hidden="true"></i><i class="g" aria-hidden="true"></i>
+                        <span class="t">player-controller.ts</span>
+                    </div>
+                    <pre><code><span class="dec">@autoload</span>()
+<span class="kw">export class</span> <span class="fn">PlayerController</span> <span class="kw">extends</span> Component {
+
+    <span class="cm">// Unity/Godot-style lifecycle hooks</span>
+    <span class="fn">onStart</span>() {
+        <span class="kw">this</span>.velocity = vec3.<span class="fn">zero</span>();
+        <span class="kw">this</span>.speed = <span class="num2">10</span>;
     }
 
-    <span class="text-purple-400">onUpdate</span>(<span class="text-blue-300">dt</span>: <span class="text-green-300">number</span>) {
-        <span class="text-purple-400">const</span> input = <span class="text-blue-300">Input</span>.<span class="text-yellow-300">getAxis</span>(<span class="text-green-300">"Movement"</span>);
-        
-        <span class="text-purple-400">this</span>.entity.<span class="text-yellow-300">translate</span>(input.<span class="text-yellow-300">mul</span>(<span class="text-purple-400">this</span>.speed * dt));
-        
-        <span class="text-purple-400">if</span> (<span class="text-blue-300">Input</span>.<span class="text-yellow-300">isJustPressed</span>(<span class="text-green-300">"Jump"</span>)) {
-            <span class="text-purple-400">this</span>.<span class="text-yellow-300">jump</span>();
+    <span class="fn">onUpdate</span>(dt: <span class="kw">number</span>) {
+        <span class="kw">const</span> input = Input.<span class="fn">getAxis</span>(<span class="str">"Movement"</span>);
+
+        <span class="kw">this</span>.entity.<span class="fn">translate</span>(input.<span class="fn">mul</span>(<span class="kw">this</span>.speed * dt));
+
+        <span class="kw">if</span> (Input.<span class="fn">isJustPressed</span>(<span class="str">"Jump"</span>)) {
+            <span class="kw">this</span>.<span class="fn">jump</span>();
         }
     }
 
-    <span class="text-purple-400">@property</span>({ <span class="text-yellow-300">range</span>: [<span class="text-orange-300">1</span>, <span class="text-orange-300">20</span>] })
-    speed: <span class="text-green-300">number</span> = <span class="text-orange-300">10</span>;
-}</code></pre>
-                    </div>
-                    <div class="absolute -bottom-4 -right-4 bg-surface-container-highest px-4 py-2 rounded-lg border border-outline-variant/20 shadow-xl">
-                        <span class="text-xs text-on-surface-variant">TypeScript</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Features Bento Grid -->
-    <section class="py-24 px-8 bg-surface">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-16">
-                <h2 class="font-headline text-4xl font-bold mb-4">Precision Engineering for <span
-                        class="text-primary">Playable Ads</span></h2>
-                <p class="text-on-surface-variant max-w-xl">Every pixel counts when you have 5 seconds to capture a
-                    user's attention. Pix3 is built for the technical alchemy of conversion — for both 2D sprite
-                    creatives and full 3D scenes.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                <!-- Feature 1: Build with AI Agents -->
-                <div
-                    class="md:col-span-8 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
-                    <div class="flex flex-col md:flex-row gap-8 h-full">
-                        <div class="flex-1">
-                            <svg class="w-8 h-8 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                            <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface">Build Games with AI Agents
-                            </h3>
-                            <p class="text-on-surface-variant text-sm leading-relaxed mb-6">
-                                Every new project scaffolds an agent workflow — <code class="text-primary">AGENTS.md</code>,
-                                bundled skills and a live HTTP API. Open the folder in Claude Code or any agent app, hand it
-                                a game-design doc, and it writes the TypeScript components, assembles scenes, then reloads,
-                                screenshots and reads logs over remote preview to iterate on its own.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">GDD → Game</span>
-                                <span
-                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">AGENTS.md</span>
-                                <span
-                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Agent HTTP API</span>
-                                <span
-                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Screenshots &amp; Logs</span>
-                            </div>
-                        </div>
-                        <div class="flex-1 bg-surface-container-lowest rounded p-4 border border-outline-variant/10">
-                            <picture>
-                                <source srcset="media/ai-asset-schematic.webp" type="image/webp">
-                                <img class="w-full h-full object-cover rounded opacity-80"
-                                    alt="Abstract schematic of an AI agent reading a game-design document and wiring up scene nodes and TypeScript components"
-                                    src="media/ai-asset-schematic.png" width="512" height="512"
-                                    loading="lazy" decoding="async" />
-                            </picture>
-                        </div>
-                    </div>
-                </div>
-                <!-- Feature 2: Preview & Ship -->
-                <div
-                    class="md:col-span-4 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
-                    <svg class="w-8 h-8 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                    <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface">Preview on Device, Ship as HTML</h3>
-                    <p class="text-on-surface-variant text-sm leading-relaxed mb-6">
-                        Scan a QR code to stream the live scene, compiled scripts and assets from the open editor to any
-                        phone — nothing uploaded, changes push on save. Export a single-file playable HTML or an
-                        HTML&nbsp;+&nbsp;assets zip.
-                    </p>
-                    <div class="space-y-3">
-                        <div
-                            class="flex items-center justify-between p-2 bg-surface-container-highest rounded text-[10px] font-bold text-on-surface-variant">
-                            <span>REMOTE PREVIEW</span>
-                            <span class="text-tertiary">QR / LINK</span>
-                        </div>
-                        <div
-                            class="flex items-center justify-between p-2 bg-surface-container-highest rounded text-[10px] font-bold text-on-surface-variant">
-                            <span>PLAYABLE HTML</span>
-                            <span class="text-tertiary">1-FILE / ZIP</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Feature 3: Real-Time Collab -->
-                <div
-                    class="md:col-span-5 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
-                    <svg class="w-8 h-8 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface">Figma for 2D &amp; 3D Games</h3>
-                    <p class="text-on-surface-variant text-sm leading-relaxed">
-                        Real-time multiplayer editing across 2D layouts and 3D scenes, backed by Yjs CRDT sync. Host
-                        projects in the cloud, invite guests with a share link — no account needed — or keep a local
-                        folder mirrored via the File System Access API.
-                    </p>
-                </div>
-                <!-- Feature 4: Complete Engine -->
-                <div
-                    class="md:col-span-7 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
-                    <div class="flex flex-col md:flex-row gap-8 items-center">
-                        <div class="flex-1">
-                            <svg class="w-8 h-8 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                            <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface">A Complete Engine,
-                                Batteries Included</h3>
-                            <p class="text-on-surface-variant text-sm leading-relaxed mb-4">
-                                A keyframe animation timeline, Cinemachine-lite virtual cameras, a cutscene director,
-                                juice &amp; time-scale, a 3-bus audio mixer, per-node shader effects, post-processing,
-                                GPU particles, localization and ECS instancing — ready to use, not hand-rolled.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Animation</span>
-                                <span class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Cutscenes</span>
-                                <span class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Shaders</span>
-                                <span class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">Particles</span>
-                                <span class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">i18n</span>
-                            </div>
-                        </div>
-                        <div
-                            class="w-full md:w-48 h-32 bg-surface-container-lowest rounded border border-outline-variant/20 overflow-hidden">
-                            <picture>
-                                <source srcset="media/asset-library-grid.webp" type="image/webp">
-                                <img class="w-full h-full object-cover"
-                                    alt="Grid of engine building blocks — animation, cameras, audio, shader effects, particles and localization"
-                                    src="media/asset-library-grid.png" width="512" height="512"
-                                    loading="lazy" decoding="async" />
-                            </picture>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Developer Experience -->
-    <section class="py-24 px-8 bg-surface">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <div class="inline-block px-3 py-1 bg-tertiary/10 border border-tertiary/20 text-tertiary text-[10px] font-bold uppercase tracking-widest mb-6">
-                    Developer Experience</div>
-                <h2 class="font-headline text-4xl font-bold mb-4 text-on-surface">Familiar Patterns, <span class="text-primary">Web-Native Speed</span></h2>
-                <p class="text-on-surface-variant max-w-2xl mx-auto">If you've worked with Unity, Godot, or Three.js — you already know Pix3. No black boxes, no proprietary scripting.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-surface-container-low rounded-lg p-6 border border-outline-variant/10">
-                    <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                    </div>
-                    <h3 class="font-headline text-xl font-bold mb-3 text-on-surface">TypeScript First</h3>
-                    <p class="text-sm text-on-surface-variant mb-4">Full type safety with IDE autocomplete. Your game logic is just TypeScript classes with decorators.</p>
-                    <pre class="text-xs font-mono text-zinc-400 bg-surface-container-lowest p-3 rounded border border-outline-variant/10"><code>@property()
-speed: number = 10;</code></pre>
-                </div>
-                <div class="bg-surface-container-low rounded-lg p-6 border border-outline-variant/10">
-                    <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    </div>
-                    <h3 class="font-headline text-xl font-bold mb-3 text-on-surface">Autoload Singletons</h3>
-                    <p class="text-sm text-on-surface-variant mb-4">Just add @autoload() — your services are available everywhere instantly, like Godot's autoloads.</p>
-                    <pre class="text-xs font-mono text-zinc-400 bg-surface-container-lowest p-3 rounded border border-outline-variant/10"><code>@autoload()
-class AudioManager {
-  playSfx(name: string) {}
+    <span class="dec">@property</span>({ range: [<span class="num2">1</span>, <span class="num2">20</span>] })
+    speed: <span class="kw">number</span> = <span class="num2">10</span>;
 }</code></pre>
                 </div>
-                <div class="bg-surface-container-low rounded-lg p-6 border border-outline-variant/10">
-                    <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+            </div>
+        </section>
+
+        <!-- Capabilities bento -->
+        <section class="reveal" id="features">
+            <div class="wrap">
+                <div class="head"><span class="eyebrow mono"><span class="dot"></span>Capabilities</span>
+                <h2>Precision Engineering for <span class="em">Playable Ads</span></h2>
+                <p class="lead">Every pixel counts when you have 5 seconds to capture a user's attention. Pix3 is built for the technical alchemy of conversion — for both 2D sprite creatives and full 3D scenes.</p>
+            </div>
+                <div class="bento">
+                    <div class="card wide">
+                        <div class="txt">
+                            <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8z"/><path d="M18.5 14.5l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9z"/></svg></span>
+                            <h3>AI-Powered Asset Creation &amp; Optimization</h3>
+                            <p>Cut creative weight by up to 90% without losing visual fidelity. Our AI agent handles mesh decimation and Draco compression for 3D, plus sprite atlas packing and adaptive texture compression for 2D — automatically.</p>
+                            <div class="tags"><span>Draco 2.0</span><span>Auto-Retopo</span><span>LOD Gen</span><span>Sprite Atlas</span></div>
+                        </div>
+                        <div class="vis">
+                            <picture>
+                            <source srcset="/media/ai-asset-schematic.webp" type="image/webp">
+                            <img src="/media/ai-asset-schematic.png" alt="Technical schematic showing a 3D robot model being optimized from high poly to low poly mesh with statistics overlays" width="512" height="512" loading="lazy" decoding="async">
+                        </picture>
+                        </div>
                     </div>
-                    <h3 class="font-headline text-xl font-bold mb-3 text-on-surface">Component System</h3>
-                    <p class="text-sm text-on-surface-variant mb-4">ECS-inspired component model. Each entity is a collection of behaviors you can compose.</p>
-                    <pre class="text-xs font-mono text-zinc-400 bg-surface-container-lowest p-3 rounded border border-outline-variant/10"><code>entity.addComponent(RigidBody);
-entity.addComponent(Collider);</code></pre>
+                    <div class="card">
+                        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0L8 8m4-4 4 4M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span>
+                        <h3>One-Click Network Publishing</h3>
+                        <p>Instant validation for AppLovin, IronSource, Unity LevelPlay, and Mintegral. No more manual SDK wrapping.</p>
+                        <div class="rows">
+                            <div class="row">Unity LevelPlay <b><span class="dot m"></span>Validated</b></div>
+                            <div class="row">AppLovin MREC <b><span class="dot m"></span>Validated</b></div>
+                            <div class="row">IronSource <b><span class="dot m"></span>Validated</b></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="16.5" cy="9.5" r="2.3"/><path d="M3 19c0-3 2.7-5 6-5s6 2 6 5M15.5 14c2.6.3 5.5 1.6 5.5 5"/></svg></span>
+                        <h3>Figma for 2D &amp; 3D Games</h3>
+                        <p>Collaborate in real-time across 2D layouts and 3D scenes. Designers edit materials and sprites while developers debug logic in the same project. Version control and branching built directly into the viewport.</p>
+                    </div>
+                    <div class="card wide flip">
+                        <div class="txt">
+                            <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+                            <h3>AI Compositor &amp; Library</h3>
+                            <p>Access 10k+ pre-optimized assets — low-poly 3D models and 2D sprite packs. Use natural language to compose scenes: “Add a cyberpunk street with neon signs and rainy floor reflections.”</p>
+                        </div>
+                        <div class="vis">
+                            <picture>
+                            <source srcset="/media/asset-library-grid.webp" type="image/webp">
+                            <img src="/media/asset-library-grid.png" alt="Grid view of 3D assets library including icons for stylized trees, characters, and UI elements in a dark mode interface" width="512" height="512" loading="lazy" decoding="async">
+                        </picture>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why teams switch -->
+        <div class="band reveal">
+            <div class="wrap">
+                <div>
+                    <span class="eyebrow mono"><span class="dot"></span>Why teams switch</span>
+                    <blockquote>“A playable used to mean a Unity build, a manual SDK wrap, and a day of round-trips. In Pix3 the designer and I work in the same scene and the validated build is out the same afternoon.”</blockquote>
+                    <div class="who">
+                        <span class="av" aria-hidden="true">LOGO</span>
+                        <div><strong>Placeholder testimonial</strong><br>Swap for a real beta studio quote — drop the name, role and logo here.</div>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div>
+                        <div class="v">−90%</div>
+                        <div class="k">Creative weight, without losing fidelity</div>
+                    </div>
+                    <div>
+                        <div class="v">4</div>
+                        <div class="k">Ad networks validated on export</div>
+                    </div>
+                    <div>
+                        <div class="v">10k+</div>
+                        <div class="k">Pre-optimized 2D &amp; 3D assets</div>
+                    </div>
+                    <div>
+                        <div class="v">3s</div>
+                        <div class="k">From link click to editing a scene</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Future Section -->
-    <section class="py-24 px-8 relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-tertiary/5 blur-[120px] -z-10 rounded-full"></div>
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
-            <div class="flex-1">
-                <div
-                    class="inline-block px-3 py-1 bg-tertiary/10 border border-tertiary/20 text-tertiary text-[10px] font-bold uppercase tracking-widest mb-6">
-                    Coming Soon</div>
-                <h2 class="font-headline text-4xl md:text-5xl font-bold mb-6">The Future of <span
-                        class="text-white">Pix3</span></h2>
-                <p class="text-on-surface-variant text-lg leading-relaxed mb-8">
-                    We are expanding beyond ads. Pix3 is evolving into a comprehensive engine for the web gaming
-                    renaissance.
-                </p>
-                <ul class="space-y-4">
-                    <li class="flex items-start gap-4">
-                        <div class="mt-1 w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
-                            <svg class="w-3 h-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        <div>
-                            <span class="font-bold text-on-surface block">Instant Web Portals</span>
-                            <p class="text-sm text-on-surface-variant">Publish directly to Poki, CrazyGames, and Yandex
-                                Games with automated ranking optimization.</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-4">
-                        <div class="mt-1 w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
-                            <svg class="w-3 h-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        <div>
-                            <span class="font-bold text-on-surface block">Native Store Wrappers</span>
-                            <p class="text-sm text-on-surface-variant">Export to iOS, Android, and Steam via
-                                high-performance native bridges.</p>
-                        </div>
-                    </li>
-                </ul>
+
+        <!-- Developer experience -->
+        <section class="reveal" id="dx">
+            <div class="wrap">
+                <div class="head center"><span class="eyebrow mono"><span class="dot m"></span>Developer Experience</span>
+                <h2>Familiar Patterns, <span class="em">Web-Native Speed</span></h2>
+                <p class="lead">If you've worked with Unity, Godot, or Three.js — you already know Pix3. No black boxes, no proprietary scripting.</p>
             </div>
-            <div class="flex-1 relative">
-                <div
-                    class="aspect-video bg-surface-container rounded-xl border border-outline-variant/20 overflow-hidden">
+                <div class="dx">
+                    <div class="card">
+                        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 8-4 4 4 4M15 8l4 4-4 4"/></svg></span>
+                        <h3>TypeScript First</h3>
+                        <p>Full type safety with IDE autocomplete. Your game logic is just TypeScript classes with decorators.</p>
+                        <pre><code><span class="dec">@property</span>()
+speed: <span class="kw">number</span> = <span class="num2">10</span>;</code></pre>
+                    </div>
+                    <div class="card">
+                        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span>
+                        <h3>Autoload Singletons</h3>
+                        <p>Just add @autoload() — your services are available everywhere instantly, like Godot's autoloads.</p>
+                        <pre><code><span class="dec">@autoload</span>()
+<span class="kw">class</span> <span class="fn">AudioManager</span> {
+  <span class="fn">playSfx</span>(name: <span class="kw">string</span>) {}
+}</code></pre>
+                    </div>
+                    <div class="card">
+                        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.4 4 5.6 4 9s-1.5 6.6-4 9c-2.5-2.4-4-5.6-4-9s1.5-6.6 4-9z"/></svg></span>
+                        <h3>Component System</h3>
+                        <p>ECS-inspired component model. Each entity is a collection of behaviors you can compose.</p>
+                        <pre><code>entity.<span class="fn">addComponent</span>(RigidBody);
+entity.<span class="fn">addComponent</span>(Collider);</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coming soon -->
+        <section class="reveal section-tight" id="future">
+            <div class="wrap two">
+                <div>
+                    <div class="head"><span class="eyebrow mono"><span class="dot m"></span>Coming Soon</span>
+                <h2>The Future of <span class="em">Pix3</span></h2>
+                <p class="lead">We are expanding beyond ads. Pix3 is evolving into a comprehensive engine for the web gaming renaissance.</p>
+            </div>
+                    <div class="checks">
+                        <div class="check">
+                            <span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg></span>
+                            <div>
+                                <h3>Instant Web Portals</h3>
+                                <p>Publish directly to Poki, CrazyGames, and Yandex Games with automated ranking optimization.</p>
+                            </div>
+                        </div>
+                        <div class="check">
+                            <span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg></span>
+                            <div>
+                                <h3>Native Store Wrappers</h3>
+                                <p>Export to iOS, Android, and Steam via high-performance native bridges.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vis">
                     <picture>
-                        <source srcset="media/bridge-visual.webp" type="image/webp">
-                        <img class="w-full h-full object-cover grayscale opacity-50"
-                            alt="Abstract visualization of a digital bridge connecting a web browser to multiple app store icons in a futuristic tech aesthetic"
-                            src="media/bridge-visual.png" width="512" height="512"
-                            loading="lazy" decoding="async" />
-                    </picture>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <svg class="w-24 h-24 text-primary opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.585 15.585a6.215 6.215 0 001.353-1.353L21 10.322a3.522 3.522 0 10-4.981-4.981l-3.91 3.91a6.215 6.215 0 00-1.353 1.353m5.829 5.829a6.215 6.215 0 01-1.353 1.353L10.322 21a3.522 3.522 0 11-4.981-4.981l3.91-3.91a6.215 6.215 0 011.353-1.353m5.829 5.829a6.215 6.215 0 11-5.83-5.83"></path></svg>
+                            <source srcset="/media/bridge-visual.webp" type="image/webp">
+                            <img src="/media/bridge-visual.png" alt="Abstract visualization of a digital bridge connecting a web browser to multiple app store icons in a futuristic tech aesthetic" width="512" height="512" loading="lazy" decoding="async">
+                        </picture>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <div class="final reveal" id="pricing">
+            <div class="wrap">
+                <div class="box">
+                    <h2>Ready to ascend?</h2>
+                    <p>Join the beta today and join the top 1% of creative studios building the next generation of interactive 2D &amp; 3D content.</p>
+                    <div class="cta">
+                        <a class="btn p" href="https://editor.pix3.dev">Join the Beta</a>
+                        <a class="btn s" href="#">Contact Sales</a>
+                    </div>
+                    <div class="fine">Free during beta · No install · Cancel anytime</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="wrap">
+            <div class="fgrid">
+                <div>
+                    <a class="logo" href="#top"><span class="mark" aria-hidden="true">P</span>pix<sup>3</sup></a>
+                    <p>The technical editor for high-performance 2D &amp; 3D creatives. Engineered for the alchemist developer.</p>
+                    <div class="cta">
+                        <a class="btn p sm" href="https://editor.pix3.dev">Open Editor</a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    <!-- Final CTA -->
-    <section class="py-24 px-8">
-        <div class="max-w-5xl mx-auto bg-primary rounded-lg p-12 text-center relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('/media/carbon-fibre.webp')]">
-            </div>
-            <h2 class="font-headline text-4xl font-black text-on-primary mb-6 relative z-10">READY TO ASCEND?</h2>
-            <p class="text-on-primary/80 font-medium mb-10 max-w-xl mx-auto relative z-10">
-                Join the beta today and join the top 1% of creative studios building the next generation of interactive
-                2D &amp; 3D content.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-                <button
-                    class="px-10 py-4 bg-surface text-white font-bold rounded-sm uppercase tracking-widest text-sm hover:bg-surface-bright transition-colors">
-                    Join the Beta
-                </button>
-                <button
-                    class="px-10 py-4 border-2 border-on-primary text-on-primary font-bold rounded-sm uppercase tracking-widest text-sm hover:bg-on-primary/10 transition-colors">
-                    Contact Sales
-                </button>
-            </div>
-        </div>
-    </section>
-    <!-- Footer -->
-    <footer class="bg-zinc-950 w-full py-12 px-8 border-t border-zinc-900/20 tonal-depth-shift bg-zinc-900/20">
-        <div class="max-w-7xl mx-auto w-full">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-                <div class="col-span-2 md:col-span-1">
-                    <div class="text-lg font-black text-zinc-200 mb-4 font-headline uppercase">Pix3</div>
-                    <p class="font-['Inter'] text-xs text-zinc-500 leading-relaxed max-w-[200px]">
-                        The technical editor for high-performance 2D &amp; 3D creatives. Engineered for the alchemist
-                        developer.
-                    </p>
-                </div>
                 <div>
-                    <h4 class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4">Platform</h4>
-                    <ul class="space-y-2">
-                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
-                                href="#">Documentation</a></li>
-                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
-                                href="#">Showcase</a></li>
-                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
-                                href="#">Pricing</a></li>
+                    <h2>Platform</h2>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Showcase</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4">Community</h4>
-                    <ul class="space-y-2">
-                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
-                                href="#">Discord</a></li>
-                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
-                                href="https://github.com/pix3dev/pix3" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
-                                href="#">Twitter</a></li>
+                    <h2>Community</h2>
+                    <ul>
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="https://github.com/pix3dev/pix3" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                        <li><a href="#">Twitter</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4">Company</h4>
-                    <ul class="space-y-2">
-                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
-                                href="#">Careers</a></li>
-                        <li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
-                                href="#">Privacy</a></li>
+                    <h2>Company</h2>
+                    <ul>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="pt-8 border-t border-zinc-900/50 flex flex-col md:flex-row justify-between items-center gap-4">
-                <span class="font-['Inter'] text-xs text-zinc-500">© 2026 Pix3 Technologies. Built for the Technical
-                    Alchemist.</span>
-                <div class="flex gap-6">
-                    <svg class="w-5 h-5 text-zinc-700 hover:text-primary transition-colors cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
-                    <svg class="w-5 h-5 text-zinc-700 hover:text-primary transition-colors cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                </div>
+            <div class="fbot">
+                <span>&copy; 2026 Pix3 Technologies. Built for the Technical Alchemist.</span>
+                <div class="lang">
+                <a href="/" class="on" aria-current="page" lang="en">EN</a>
+                <span aria-hidden="true">|</span>
+                <a href="/ru/" lang="ru">RU</a>
+            </div>
             </div>
         </div>
     </footer>
+
+    <script>
+        (function () {
+            var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // Sticky header gets a line + denser background once scrolled.
+            var hdr = document.getElementById('hdr');
+            addEventListener('scroll', function () {
+                hdr.classList.toggle('stuck', scrollY > 8);
+            }, { passive: true });
+
+            // Reveal on scroll — once per element, ~15% visible. Elements taller
+            // than the viewport can never reach that ratio, so they reveal on
+            // first intersection instead.
+            var revealables = document.querySelectorAll('.reveal');
+            if (reduceMotion || !('IntersectionObserver' in window)) {
+                revealables.forEach(function (el) { el.classList.add('in'); });
+            } else {
+                var io = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) {
+                        var tall = e.boundingClientRect.height > innerHeight * 0.6;
+                        if (e.isIntersecting && (tall || e.intersectionRatio >= 0.15)) {
+                            e.target.classList.add('in');
+                            io.unobserve(e.target);
+                        }
+                    });
+                }, { threshold: [0, 0.15] });
+                revealables.forEach(function (el) { io.observe(el); });
+            }
+
+            // Demo: swap the still for the embed on demand (no third-party
+            // request until the visitor asks for it).
+            var media = document.getElementById('heromedia');
+            function playDemo() {
+                if (!media || media.dataset.on) return;
+                media.dataset.on = '1';
+                media.closest('.shot').setAttribute('data-playing', '');
+                var frame = document.createElement('iframe');
+                frame.src = 'https://www.youtube-nocookie.com/embed/' + media.dataset.videoId + '?autoplay=1&rel=0';
+                frame.title = media.dataset.videoTitle;
+                frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+                frame.allowFullscreen = true;
+                media.replaceChildren(frame);
+            }
+            var playBtn = document.getElementById('playbtn');
+            if (playBtn) playBtn.addEventListener('click', playDemo);
+            var watchDemo = document.getElementById('watch-demo');
+            if (watchDemo) watchDemo.addEventListener('click', function () { playDemo(); });
+
+            // Mobile drawer.
+            var burger = document.getElementById('burger');
+            var drawer = document.getElementById('drawer');
+            var drawerClose = document.getElementById('drawer-close');
+            function setNav(open) {
+                drawer.toggleAttribute('data-open', open);
+                drawer.setAttribute('aria-hidden', String(!open));
+                burger.setAttribute('aria-expanded', String(open));
+                document.body.toggleAttribute('data-nav-open', open);
+                (open ? drawerClose : burger).focus();
+            }
+            burger.addEventListener('click', function () { setNav(true); });
+            drawerClose.addEventListener('click', function () { setNav(false); });
+            drawer.querySelectorAll('[data-nav-close]').forEach(function (el) {
+                el.addEventListener('click', function () { setNav(false); });
+            });
+            addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && drawer.hasAttribute('data-open')) setNav(false);
+            });
+            matchMedia('(min-width: 901px)').addEventListener('change', function (e) {
+                if (e.matches && drawer.hasAttribute('data-open')) setNav(false);
+            });
+        })();
+    </script>
 
     <!-- Yandex.Metrika counter (loaded after first paint) -->
     <script>

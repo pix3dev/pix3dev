@@ -5,7 +5,372 @@ const path = require('path');
 
 const SRC = path.join(__dirname, 'src');
 
-// ── LOCALE DATA ───────────────────────────────────────────────────────────────
+// ── SITE CONSTANTS (every outbound link lives here) ───────────────────────────
+
+const SITE = {
+  editor: 'https://editor.pix3.dev',
+  github: 'https://github.com/pix3dev/pix3',
+  // Star count is rendered statically (no external badge request, no CLS).
+  // Bump it when it drifts: gh api repos/pix3dev/pix3 --jq .stargazers_count
+  githubStars: 8,
+  demoVideoId: 'apBppZ5j36o',
+  metrikaId: 108302071,
+  ogImage: 'https://pix3.dev/media/editor-interface.jpg',
+};
+
+// ── LOCALE STRINGS ────────────────────────────────────────────────────────────
+// `en` is the complete reference dictionary. Every other locale holds overrides
+// and is deep-merged onto `en`, so a missing or not-yet-translated key falls
+// back to English rather than rendering empty. Keep the key shape identical.
+
+const strings = {
+  en: {
+    meta: {
+      title: 'Pix3 | The Ultimate Editor for 2D &amp; 3D Playable Ads',
+      description:
+        'Workstation-grade WebGL editor for 2D and 3D playable ads and mini-games — AI-driven workflows, real-time collaboration, one unified pipeline.',
+      ogImageAlt: 'Pix3 editor interface preview',
+    },
+    a11y: {
+      skip: 'Skip to content',
+      openMenu: 'Open menu',
+      closeMenu: 'Close menu',
+      watchDemo: 'Watch demo video',
+      mainNav: 'Main navigation',
+      videoTitle: 'Pix3 demo',
+      stars: 'GitHub stars',
+    },
+    nav: {
+      product: 'Product',
+      features: 'Features',
+      developers: 'Developers',
+      pricing: 'Pricing',
+      openEditor: 'Open Editor',
+      github: 'GitHub',
+    },
+    hero: {
+      eyebrow: 'Beta Access Now Open',
+      h1Before: 'The Ultimate Editor for',
+      h1Highlight: '2D &amp; 3D Playable Ads',
+      h1After: 'and Mini-Games',
+      p: 'Zero-install WebGL editor with a unified 2D &amp; 3D pipeline. Build playable ads and mini-games directly in your browser — no downloads, no setup, no wait.',
+      cta1: 'Open Editor in Browser',
+      cta2: 'Watch Demo',
+      trust: ['Zero install', 'Works in any browser', 'Start in 3 seconds', 'No credit card'],
+      frameTitle: 'editor.pix3.dev — main-scene.pix3scene',
+      playLabel: 'Watch demo',
+      editorAlt:
+        'Professional Pix3 editor interface showing a 3D scene with textured blocks, scene tree hierarchy, asset browser with model previews, and detailed asset inspector.',
+      chips: {
+        fps: 'FPS',
+        drawCalls: 'Draw calls',
+        buildSize: 'Build size',
+      },
+    },
+    techStrip: ['ThreeJS Engine', 'AI Agent Integrated', 'Web-Based PWA', 'Client-side WebGL 2.0'],
+    workflow: {
+      eyebrow: 'Workflow',
+      h2Line1: 'Brief to network-ready build,',
+      h2Line2: 'in one browser tab',
+      p: 'No local toolchain, no export dance between DCC, engine and SDK wrapper. Three steps from an empty scene to a validated creative.',
+      steps: [
+        {
+          num: '01 / Compose',
+          title: 'Open the editor and drop in assets',
+          p: 'Start from 10k+ pre-optimized 3D models and 2D sprite packs, or compose a scene with natural language. 2D layouts and 3D scenes live in the same project.',
+          meta: 'Start in 3 seconds',
+        },
+        {
+          num: '02 / Build logic',
+          title: 'Write TypeScript you already know',
+          p: 'Unity- and Godot-style lifecycle hooks, components and autoloads — with full type safety and IDE autocomplete. No proprietary scripting.',
+          meta: 'Familiar patterns',
+        },
+        {
+          num: '03 / Ship',
+          title: 'Publish with one click',
+          p: 'The AI agent cuts creative weight by up to 90%, then Pix3 validates the build for AppLovin, IronSource, Unity LevelPlay and Mintegral. No manual SDK wrapping.',
+          meta: 'Validated output',
+        },
+      ],
+    },
+    pipeline: {
+      eyebrow: 'Architecture',
+      h2: 'Unified 2D/3D',
+      h2Highlight: 'Rendering Pipeline',
+      p: 'Unlike Unity or Godot where UI and 3D live in separate rendering contexts, Pix3 uses a single Three.js pipeline for everything. No complex transitions, no context switching — just seamless hybrid rendering.',
+      card1Title: 'Single Rendering Context',
+      card1p:
+        '2D UI components (built with Lit) and 3D scenes share the same WebGL context — no iframes, no portals, no compromises.',
+      card2Title: 'Zero-Overhead Interoperability',
+      card2p:
+        'UI elements can be projected into 3D space or wrap 3D objects. Blur effects, transforms, and animations apply uniformly.',
+      codeTitle: 'player-controller.ts',
+    },
+    features: {
+      eyebrow: 'Capabilities',
+      h2: 'Precision Engineering for',
+      h2Highlight: 'Playable Ads',
+      p: "Every pixel counts when you have 5 seconds to capture a user's attention. Pix3 is built for the technical alchemy of conversion — for both 2D sprite creatives and full 3D scenes.",
+      f1Title: 'AI-Powered Asset Creation &amp; Optimization',
+      f1p: 'Cut creative weight by up to 90% without losing visual fidelity. Our AI agent handles mesh decimation and Draco compression for 3D, plus sprite atlas packing and adaptive texture compression for 2D — automatically.',
+      f1Tags: ['Draco 2.0', 'Auto-Retopo', 'LOD Gen', 'Sprite Atlas'],
+      f1ImageAlt:
+        'Technical schematic showing a 3D robot model being optimized from high poly to low poly mesh with statistics overlays',
+      f2Title: 'One-Click Network Publishing',
+      f2p: 'Instant validation for AppLovin, IronSource, Unity LevelPlay, and Mintegral. No more manual SDK wrapping.',
+      f2Validated: 'Validated',
+      f2Rows: ['Unity LevelPlay', 'AppLovin MREC', 'IronSource'],
+      f3Title: 'Figma for 2D &amp; 3D Games',
+      f3p: 'Collaborate in real-time across 2D layouts and 3D scenes. Designers edit materials and sprites while developers debug logic in the same project. Version control and branching built directly into the viewport.',
+      f4Title: 'AI Compositor &amp; Library',
+      f4p: 'Access 10k+ pre-optimized assets — low-poly 3D models and 2D sprite packs. Use natural language to compose scenes: “Add a cyberpunk street with neon signs and rainy floor reflections.”',
+      f4ImageAlt:
+        'Grid view of 3D assets library including icons for stylized trees, characters, and UI elements in a dark mode interface',
+    },
+    band: {
+      eyebrow: 'Why teams switch',
+      quote:
+        '“A playable used to mean a Unity build, a manual SDK wrap, and a day of round-trips. In Pix3 the designer and I work in the same scene and the validated build is out the same afternoon.”',
+      avatar: 'LOGO',
+      whoName: 'Placeholder testimonial',
+      whoText: 'Swap for a real beta studio quote — drop the name, role and logo here.',
+      stats: [
+        { v: '−90%', k: 'Creative weight, without losing fidelity' },
+        { v: '4', k: 'Ad networks validated on export' },
+        { v: '10k+', k: 'Pre-optimized 2D &amp; 3D assets' },
+        { v: '3s', k: 'From link click to editing a scene' },
+      ],
+    },
+    dx: {
+      eyebrow: 'Developer Experience',
+      h2: 'Familiar Patterns,',
+      h2Highlight: 'Web-Native Speed',
+      p: "If you've worked with Unity, Godot, or Three.js — you already know Pix3. No black boxes, no proprietary scripting.",
+      card1Title: 'TypeScript First',
+      card1p:
+        'Full type safety with IDE autocomplete. Your game logic is just TypeScript classes with decorators.',
+      card2Title: 'Autoload Singletons',
+      card2p:
+        "Just add @autoload() — your services are available everywhere instantly, like Godot's autoloads.",
+      card3Title: 'Component System',
+      card3p:
+        'ECS-inspired component model. Each entity is a collection of behaviors you can compose.',
+    },
+    future: {
+      eyebrow: 'Coming Soon',
+      h2: 'The Future of',
+      h2Highlight: 'Pix3',
+      p: 'We are expanding beyond ads. Pix3 is evolving into a comprehensive engine for the web gaming renaissance.',
+      item1Title: 'Instant Web Portals',
+      item1p:
+        'Publish directly to Poki, CrazyGames, and Yandex Games with automated ranking optimization.',
+      item2Title: 'Native Store Wrappers',
+      item2p: 'Export to iOS, Android, and Steam via high-performance native bridges.',
+      imageAlt:
+        'Abstract visualization of a digital bridge connecting a web browser to multiple app store icons in a futuristic tech aesthetic',
+    },
+    cta: {
+      h2: 'Ready to ascend?',
+      p: 'Join the beta today and join the top 1% of creative studios building the next generation of interactive 2D &amp; 3D content.',
+      btn1: 'Join the Beta',
+      btn2: 'Contact Sales',
+      fine: 'Free during beta · No install · Cancel anytime',
+    },
+    footer: {
+      tagline:
+        'The technical editor for high-performance 2D &amp; 3D creatives. Engineered for the alchemist developer.',
+      platformHeading: 'Platform',
+      platformLinks: ['Documentation', 'Showcase', 'Pricing'],
+      communityHeading: 'Community',
+      communityLinks: ['Discord', 'GitHub', 'Twitter'],
+      companyHeading: 'Company',
+      companyLinks: ['Careers', 'Privacy'],
+      copyright: '&copy; 2026 Pix3 Technologies. Built for the Technical Alchemist.',
+    },
+  },
+
+  ru: {
+    meta: {
+      title: 'Pix3 | Редактор игровой рекламы 2D и 3D на WebGL',
+      description:
+        'Профессиональный WebGL-редактор для 2D и 3D игровой рекламы и мини-игр — ИИ-сценарии, совместная работа в реальном времени, единый конвейер рендеринга.',
+      ogImageAlt: 'Превью интерфейса редактора Pix3',
+    },
+    a11y: {
+      skip: 'Перейти к содержимому',
+      openMenu: 'Открыть меню',
+      closeMenu: 'Закрыть меню',
+      watchDemo: 'Смотреть демо-видео',
+      mainNav: 'Основная навигация',
+      videoTitle: 'Демо Pix3',
+      stars: 'Звёзды на GitHub',
+    },
+    nav: {
+      product: 'Продукт',
+      features: 'Возможности',
+      developers: 'Разработчикам',
+      pricing: 'Цены',
+      openEditor: 'Открыть редактор',
+      github: 'GitHub',
+    },
+    hero: {
+      eyebrow: 'Бета-доступ открыт',
+      h1Before: 'Главный редактор для',
+      h1Highlight: '2D &amp; 3D игровой рекламы',
+      h1After: 'и мини-игр',
+      p: 'WebGL-редактор без установки с единым конвейером 2D &amp; 3D. Создавайте игровую рекламу и мини-игры прямо в браузере — без скачивания, без настройки, без ожидания.',
+      cta1: 'Открыть редактор',
+      cta2: 'Смотреть демо',
+      trust: [
+        'Без установки',
+        'Работает в любом браузере',
+        'Старт за 3 секунды',
+        'Без банковской карты',
+      ],
+      playLabel: 'Смотреть демо',
+      editorAlt:
+        'Профессиональный интерфейс редактора Pix3: 3D-сцена с текстурированными блоками, иерархия объектов, браузер ассетов с превью моделей и детальный инспектор.',
+      chips: {
+        drawCalls: 'Вызовы отрисовки',
+        buildSize: 'Вес сборки',
+      },
+    },
+    techStrip: [
+      'Движок ThreeJS',
+      'Встроенный ИИ-агент',
+      'Веб-приложение PWA',
+      'WebGL 2.0 на стороне клиента',
+    ],
+    workflow: {
+      eyebrow: 'Процесс',
+      h2Line1: 'От брифа до билда, готового к сети,',
+      h2Line2: 'в одной вкладке браузера',
+      p: 'Никакого локального тулчейна, никакой пляски с экспортом между DCC, движком и обёрткой SDK. Три шага от пустой сцены до проверенного креатива.',
+      steps: [
+        {
+          num: '01 / Компоновка',
+          title: 'Откройте редактор и добавьте ассеты',
+          p: 'Начните с 10 000+ предоптимизированных 3D-моделей и 2D-спрайт-паков или скомпонуйте сцену на естественном языке. 2D-макеты и 3D-сцены живут в одном проекте.',
+          meta: 'Старт за 3 секунды',
+        },
+        {
+          num: '02 / Логика',
+          title: 'Пишите на TypeScript, который уже знаете',
+          p: 'Хуки жизненного цикла, компоненты и автозагрузки в духе Unity и Godot — с полной типобезопасностью и автодополнением в IDE. Никаких проприетарных скриптов.',
+          meta: 'Знакомые паттерны',
+        },
+        {
+          num: '03 / Публикация',
+          title: 'Публикуйте одним кликом',
+          p: 'ИИ-агент сокращает вес креатива до 90%, затем Pix3 валидирует билд для AppLovin, IronSource, Unity LevelPlay и Mintegral. Никакой ручной обёртки SDK.',
+          meta: 'Проверенный результат',
+        },
+      ],
+    },
+    pipeline: {
+      eyebrow: 'Архитектура',
+      h2: 'Единый конвейер',
+      h2Highlight: 'рендеринга 2D/3D',
+      p: 'В отличие от Unity или Godot, где UI и 3D работают в разных контекстах рендеринга, Pix3 использует единый конвейер Three.js для всего. Без сложных переходов, без переключения контекста — только бесшовный гибридный рендеринг.',
+      card1Title: 'Единый контекст рендеринга',
+      card1p:
+        'Компоненты 2D UI (на базе Lit) и 3D-сцены используют один WebGL-контекст — без iframe, без порталов, без компромиссов.',
+      card2Title: 'Нулевые накладные расходы',
+      card2p:
+        'UI-элементы можно проецировать в 3D-пространство или оборачивать 3D-объекты. Blur-эффекты, трансформации и анимации применяются единообразно.',
+    },
+    features: {
+      eyebrow: 'Возможности',
+      h2: 'Точная инженерия для',
+      h2Highlight: 'игровой рекламы',
+      p: 'Каждый пиксель важен, когда у вас есть 5 секунд на захват внимания пользователя. Pix3 создан для технической алхимии конверсии — как для 2D-спрайтов, так и для полноценных 3D-сцен.',
+      f1Title: 'ИИ-создание и оптимизация ассетов',
+      f1p: 'Сократите вес креативов до 90% без потери качества. ИИ-агент выполняет децимацию полигонов и Draco-компрессию для 3D, а также упаковку спрайт-атласов и адаптивное сжатие текстур для 2D — автоматически.',
+      f1ImageAlt:
+        'Техническая схема оптимизации 3D-модели робота от высокополигональной до низкополигональной сетки с отображением статистики',
+      f2Title: 'Публикация в сеть одним кликом',
+      f2p: 'Мгновенная валидация для AppLovin, IronSource, Unity LevelPlay и Mintegral. Больше никакой ручной обёртки SDK.',
+      f2Validated: 'Проверено',
+      f3Title: 'Figma для 2D &amp; 3D-игр',
+      f3p: 'Совместная работа в реальном времени над 2D-макетами и 3D-сценами. Дизайнеры редактируют материалы и спрайты, разработчики отлаживают логику — в одном проекте. Контроль версий и ветвление прямо во вьюпорте.',
+      f4Title: 'ИИ-компоновщик и библиотека',
+      f4p: 'Доступ к 10 000+ предоптимизированных ассетов — низкополигональные 3D-модели и 2D-спрайт-паки. Компонуйте сцены на естественном языке: «Добавь киберпанк-улицу с неоновыми вывесками и отражениями на мокром полу».',
+      f4ImageAlt:
+        'Сеточный вид библиотеки 3D-ассетов с иконками стилизованных деревьев, персонажей и UI-элементов в тёмном интерфейсе',
+    },
+    band: {
+      eyebrow: 'Почему команды переходят',
+      quote:
+        '«Раньше плейбл означал билд в Unity, ручную обёртку SDK и день переписки. В Pix3 дизайнер и я работаем в одной сцене, и проверенный билд выходит в тот же день.»',
+      avatar: 'ЛОГО',
+      whoName: 'Место для отзыва',
+      whoText: 'Замените на реальную цитату студии из беты — имя, роль и логотип сюда.',
+      stats: [
+        { v: '−90%', k: 'Вес креатива — без потери качества' },
+        { v: '4', k: 'Рекламные сети, проверяемые при экспорте' },
+        { v: '10k+', k: 'Предоптимизированных 2D- и 3D-ассетов' },
+        { v: '3 с', k: 'От клика по ссылке до работы со сценой' },
+      ],
+    },
+    dx: {
+      eyebrow: 'Опыт разработчика',
+      h2: 'Знакомые паттерны,',
+      h2Highlight: 'скорость веб-платформы',
+      p: 'Если вы работали с Unity, Godot или Three.js — вы уже знаете Pix3. Никаких чёрных ящиков, никаких проприетарных скриптов.',
+      card1Title: 'TypeScript прежде всего',
+      card1p:
+        'Полная типобезопасность с автодополнением в IDE. Логика игры — это просто TypeScript-классы с декораторами.',
+      card2Title: 'Автозагружаемые синглтоны',
+      card2p:
+        'Просто добавьте @autoload() — ваши сервисы доступны везде мгновенно, как автозагрузки в Godot.',
+      card3Title: 'Система компонентов',
+      card3p:
+        'Компонентная модель в духе ECS. Каждая сущность — это набор поведений, которые можно компоновать.',
+    },
+    future: {
+      eyebrow: 'Скоро',
+      h2: 'Будущее',
+      h2Highlight: 'Pix3',
+      p: 'Мы выходим за рамки рекламы. Pix3 превращается в комплексный движок для эпохи возрождения веб-игр.',
+      item1Title: 'Мгновенные веб-порталы',
+      item1p:
+        'Публикуйте напрямую на Poki, CrazyGames и Яндекс Игры с автоматической оптимизацией ранжирования.',
+      item2Title: 'Нативные оболочки для магазинов',
+      item2p: 'Экспорт в iOS, Android и Steam через высокопроизводительные нативные мосты.',
+      imageAlt:
+        'Абстрактная визуализация цифрового моста, соединяющего браузер с иконками магазинов приложений в футуристическом технологическом стиле',
+    },
+    cta: {
+      h2: 'Готовы к подъёму?',
+      p: 'Вступайте в бету сегодня и присоединяйтесь к топ-1% творческих студий, строящих интерактивный 2D &amp; 3D-контент следующего поколения.',
+      btn1: 'Вступить в бету',
+      btn2: 'Связаться с продажами',
+      fine: 'Бесплатно в бете · Без установки · Отмена в любой момент',
+    },
+    footer: {
+      tagline:
+        'Технический редактор для высокопроизводительных 2D &amp; 3D-креативов. Создан для разработчика-алхимика.',
+      platformHeading: 'Платформа',
+      platformLinks: ['Документация', 'Витрина', 'Цены'],
+      communityHeading: 'Сообщество',
+      communityLinks: ['Discord', 'GitHub', 'Twitter'],
+      companyHeading: 'Компания',
+      companyLinks: ['Вакансии', 'Конфиденциальность'],
+      copyright: '&copy; 2026 Pix3 Technologies. Создано для технического алхимика.',
+    },
+  },
+};
+
+// Hrefs for the footer link columns, positionally paired with the label arrays
+// above so translated labels never carry URLs.
+const FOOTER_HREFS = {
+  platformLinks: ['#', '#', '#pricing'],
+  communityLinks: ['#', SITE.github, '#'],
+  companyLinks: ['#', '#'],
+};
+
+// ── LOCALE ROUTING / SEO ──────────────────────────────────────────────────────
 
 const locales = {
   en: {
@@ -15,108 +380,15 @@ const locales = {
     cssPath: './style.css',
     canonical: 'https://pix3.dev/',
     ogUrl: 'https://pix3.dev/',
+    preloadCyrillic: false,
     alternates: [
       { lang: 'x-default', href: 'https://pix3.dev/' },
-      { lang: 'en',        href: 'https://pix3.dev/' },
-      { lang: 'ru',        href: 'https://pix3.dev/ru/' },
+      { lang: 'en', href: 'https://pix3.dev/' },
+      { lang: 'ru', href: 'https://pix3.dev/ru/' },
     ],
     switcher: {
-      en: { href: '/',    active: true  },
+      en: { href: '/', active: true },
       ru: { href: '/ru/', active: false },
-    },
-    meta: {
-      title:      'Pix3 | The Technical Alchemist for 2D & 3D Playable Ads',
-      description:'Workstation-grade WebGL editor for 2D and 3D playable ads and mini-games — AI-driven workflows, real-time collaboration, one unified pipeline.',
-      ogImageAlt: 'Pix3 editor interface preview',
-    },
-    nav: {
-      product:    'Product',
-      features:   'Features',
-      showcase:   'Showcase',
-      pricing:    'Pricing',
-      openEditor: 'Open Editor',
-    },
-    hero: {
-      badge:      'Beta Access Now Open',
-      h1Before:   'The Ultimate Editor for',
-      h1Highlight:'2D &amp; 3D Playable Ads',
-      h1After:    'and Mini-Games',
-      p:          'Zero-install WebGL editor with a unified 2D &amp; 3D pipeline. Build playable ads and mini-games directly in your browser — no downloads, no setup, no wait.',
-      cta1:       'Open Editor in Browser',
-      cta2:       'Watch Demo',
-      subline:    'Zero install • Works in any browser • Start in 3 seconds',
-      editorAlt:  'Professional Pix3 editor interface showing a 3D scene with textured blocks, scene tree hierarchy, asset browser with model previews, and detailed asset inspector.',
-    },
-    techStrip: [
-      'ThreeJS Engine',
-      'AI Agent Integrated',
-      'Web-Based PWA',
-      'Client-side WebGL 2.0',
-    ],
-    pipeline: {
-      badge:      'Architecture',
-      h2:         'Unified 2D/3D',
-      h2Highlight:'Rendering Pipeline',
-      p:          'Unlike Unity or Godot where UI and 3D live in separate rendering contexts, Pix3 uses a single Three.js pipeline for everything. No complex transitions, no context switching — just seamless hybrid rendering.',
-      card1Title: 'Single Rendering Context',
-      card1p:     '2D UI components (built with Lit) and 3D scenes share the same WebGL context — no iframes, no portals, no compromises.',
-      card2Title: 'Zero-Overhead Interoperability',
-      card2p:     'UI elements can be projected into 3D space or wrap 3D objects. Blur effects, transforms, and animations apply uniformly.',
-    },
-    features: {
-      h2:         'Precision Engineering for',
-      h2Highlight:'Playable Ads',
-      p:          "Every pixel counts when you have 5 seconds to capture a user's attention. Pix3 is built for the technical alchemy of conversion — for both 2D sprite creatives and full 3D scenes.",
-      f1Title:    'AI-Powered Asset Creation &amp; Optimization',
-      f1p:        'Cut creative weight by up to 90% without losing visual fidelity. Our AI agent handles mesh decimation and Draco compression for 3D, plus sprite atlas packing and adaptive texture compression for 2D — automatically.',
-      f1Tags:     ['Draco 2.0', 'Auto-Retopo', 'LOD Gen', 'Sprite Atlas'],
-      f1ImageAlt: 'Technical schematic showing a 3D robot model being optimized from high poly to low poly mesh with statistics overlays',
-      f2Title:    'One-Click Network Publishing',
-      f2p:        'Instant validation for AppLovin, IronSource, Unity LevelPlay, and Mintegral. No more manual SDK wrapping.',
-      f3Title:    'Figma for 2D &amp; 3D Games',
-      f3p:        'Collaborate in real-time across 2D layouts and 3D scenes. Designers edit materials and sprites while developers debug logic in the same project. Version control and branching built directly into the viewport.',
-      f4Title:    'AI Compositor &amp; Library',
-      f4p:        'Access 10k+ pre-optimized assets — low-poly 3D models and 2D sprite packs. Use natural language to compose scenes: "Add a cyberpunk street with neon signs and rainy floor reflections."',
-      f4ImageAlt: 'Grid view of 3D assets library including icons for stylized trees, characters, and UI elements in a dark mode interface',
-    },
-    dx: {
-      badge:      'Developer Experience',
-      h2:         'Familiar Patterns,',
-      h2Highlight:'Web-Native Speed',
-      p:          "If you've worked with Unity, Godot, or Three.js — you already know Pix3. No black boxes, no proprietary scripting.",
-      card1Title: 'TypeScript First',
-      card1p:     'Full type safety with IDE autocomplete. Your game logic is just TypeScript classes with decorators.',
-      card2Title: 'Autoload Singletons',
-      card2p:     "Just add @autoload() — your services are available everywhere instantly, like Godot's autoloads.",
-      card3Title: 'Component System',
-      card3p:     'ECS-inspired component model. Each entity is a collection of behaviors you can compose.',
-    },
-    future: {
-      badge:      'Coming Soon',
-      h2:         'The Future of',
-      h2Highlight:'Pix3',
-      p:          'We are expanding beyond ads. Pix3 is evolving into a comprehensive engine for the web gaming renaissance.',
-      item1Title: 'Instant Web Portals',
-      item1p:     'Publish directly to Poki, CrazyGames, and Yandex Games with automated ranking optimization.',
-      item2Title: 'Native Store Wrappers',
-      item2p:     'Export to iOS, Android, and Steam via high-performance native bridges.',
-      imageAlt:   'Abstract visualization of a digital bridge connecting a web browser to multiple app store icons in a futuristic tech aesthetic',
-    },
-    cta: {
-      h2:   'READY TO ASCEND?',
-      p:    'Join the beta today and join the top 1% of creative studios building the next generation of interactive 2D &amp; 3D content.',
-      btn1: 'Join the Beta',
-      btn2: 'Contact Sales',
-    },
-    footer: {
-      tagline:          'The technical editor for high-performance 2D &amp; 3D creatives. Engineered for the alchemist developer.',
-      platformHeading:  'Platform',
-      platformLinks:    ['Documentation', 'Showcase', 'Pricing'],
-      communityHeading: 'Community',
-      communityLinks:   ['Discord', 'GitHub', 'Twitter'],
-      companyHeading:   'Company',
-      companyLinks:     ['Careers', 'Privacy'],
-      copyright:        '&copy; 2026 Pix3 Technologies. Built for the Technical Alchemist.',
     },
   },
 
@@ -127,630 +399,665 @@ const locales = {
     cssPath: '../style.css',
     canonical: 'https://pix3.dev/ru/',
     ogUrl: 'https://pix3.dev/ru/',
+    // /ru/ copy is Cyrillic — preload that subset too, or the first paint of
+    // every heading and label swaps late.
+    preloadCyrillic: true,
     alternates: [
       { lang: 'x-default', href: 'https://pix3.dev/' },
-      { lang: 'en',        href: 'https://pix3.dev/' },
-      { lang: 'ru',        href: 'https://pix3.dev/ru/' },
+      { lang: 'en', href: 'https://pix3.dev/' },
+      { lang: 'ru', href: 'https://pix3.dev/ru/' },
     ],
     switcher: {
-      en: { href: '/',    active: false },
-      ru: { href: '/ru/', active: true  },
-    },
-    meta: {
-      title:      'Pix3 | Редактор игровой рекламы 2D и 3D на WebGL',
-      description:'Профессиональный WebGL-редактор для 2D и 3D игровой рекламы и мини-игр — ИИ-сценарии, совместная работа в реальном времени, единый конвейер рендеринга.',
-      ogImageAlt: 'Превью интерфейса редактора Pix3',
-    },
-    nav: {
-      product:    'Продукт',
-      features:   'Возможности',
-      showcase:   'Витрина',
-      pricing:    'Цены',
-      openEditor: 'Открыть редактор',
-    },
-    hero: {
-      badge:      'Бета-доступ открыт',
-      h1Before:   'Главный редактор для',
-      h1Highlight:'2D &amp; 3D игровой рекламы',
-      h1After:    'и мини-игр',
-      p:          'WebGL-редактор без установки с единым конвейером 2D &amp; 3D. Создавайте игровую рекламу и мини-игры прямо в браузере — без скачивания, без настройки, без ожидания.',
-      cta1:       'Открыть редактор',
-      cta2:       'Смотреть демо',
-      subline:    'Без установки • Работает в любом браузере • Старт за 3 секунды',
-      editorAlt:  'Профессиональный интерфейс редактора Pix3: 3D-сцена с текстурированными блоками, иерархия объектов, браузер ассетов с превью моделей и детальный инспектор.',
-    },
-    techStrip: [
-      'Движок ThreeJS',
-      'Встроенный ИИ-агент',
-      'Веб-приложение PWA',
-      'WebGL 2.0 на стороне клиента',
-    ],
-    pipeline: {
-      badge:      'Архитектура',
-      h2:         'Единый конвейер',
-      h2Highlight:'рендеринга 2D/3D',
-      p:          'В отличие от Unity или Godot, где UI и 3D работают в разных контекстах рендеринга, Pix3 использует единый конвейер Three.js для всего. Без сложных переходов, без переключения контекста — только бесшовный гибридный рендеринг.',
-      card1Title: 'Единый контекст рендеринга',
-      card1p:     'Компоненты 2D UI (на базе Lit) и 3D-сцены используют один WebGL-контекст — без iframe, без порталов, без компромиссов.',
-      card2Title: 'Нулевые накладные расходы',
-      card2p:     'UI-элементы можно проецировать в 3D-пространство или оборачивать 3D-объекты. Blur-эффекты, трансформации и анимации применяются единообразно.',
-    },
-    features: {
-      h2:         'Точная инженерия для',
-      h2Highlight:'игровой рекламы',
-      p:          'Каждый пиксель важен, когда у вас есть 5 секунд на захват внимания пользователя. Pix3 создан для технической алхимии конверсии — как для 2D-спрайтов, так и для полноценных 3D-сцен.',
-      f1Title:    'ИИ-создание и оптимизация ассетов',
-      f1p:        'Сократите вес креативов до 90% без потери качества. ИИ-агент выполняет децимацию полигонов и Draco-компрессию для 3D, а также упаковку спрайт-атласов и адаптивное сжатие текстур для 2D — автоматически.',
-      f1Tags:     ['Draco 2.0', 'Auto-Retopo', 'LOD Gen', 'Sprite Atlas'],
-      f1ImageAlt: 'Техническая схема оптимизации 3D-модели робота от высокополигональной до низкополигональной сетки с отображением статистики',
-      f2Title:    'Публикация в сеть одним кликом',
-      f2p:        'Мгновенная валидация для AppLovin, IronSource, Unity LevelPlay и Mintegral. Больше никакой ручной обёртки SDK.',
-      f3Title:    'Figma для 2D &amp; 3D-игр',
-      f3p:        'Совместная работа в реальном времени над 2D-макетами и 3D-сценами. Дизайнеры редактируют материалы и спрайты, разработчики отлаживают логику — в одном проекте. Контроль версий и ветвление прямо во вьюпорте.',
-      f4Title:    'ИИ-компоновщик и библиотека',
-      f4p:        'Доступ к 10 000+ предоптимизированных ассетов — низкополигональные 3D-модели и 2D-спрайт-паки. Компонуйте сцены на естественном языке: «Добавь киберпанк-улицу с неоновыми вывесками и отражениями на мокром полу».',
-      f4ImageAlt: 'Сеточный вид библиотеки 3D-ассетов с иконками стилизованных деревьев, персонажей и UI-элементов в тёмном интерфейсе',
-    },
-    dx: {
-      badge:      'Опыт разработчика',
-      h2:         'Знакомые паттерны,',
-      h2Highlight:'скорость веб-платформы',
-      p:          'Если вы работали с Unity, Godot или Three.js — вы уже знаете Pix3. Никаких чёрных ящиков, никаких проприетарных скриптов.',
-      card1Title: 'TypeScript прежде всего',
-      card1p:     'Полная типобезопасность с автодополнением в IDE. Логика игры — это просто TypeScript-классы с декораторами.',
-      card2Title: 'Автозагружаемые синглтоны',
-      card2p:     'Просто добавьте @autoload() — ваши сервисы доступны везде мгновенно, как автозагрузки в Godot.',
-      card3Title: 'Система компонентов',
-      card3p:     'Компонентная модель в духе ECS. Каждая сущность — это набор поведений, которые можно компоновать.',
-    },
-    future: {
-      badge:      'Скоро',
-      h2:         'Будущее',
-      h2Highlight:'Pix3',
-      p:          'Мы выходим за рамки рекламы. Pix3 превращается в комплексный движок для эпохи возрождения веб-игр.',
-      item1Title: 'Мгновенные веб-порталы',
-      item1p:     'Публикуйте напрямую на Poki, CrazyGames и Яндекс Игры с автоматической оптимизацией ранжирования.',
-      item2Title: 'Нативные оболочки для магазинов',
-      item2p:     'Экспорт в iOS, Android и Steam через высокопроизводительные нативные мосты.',
-      imageAlt:   'Абстрактная визуализация цифрового моста, соединяющего браузер с иконками магазинов приложений в футуристическом технологическом стиле',
-    },
-    cta: {
-      h2:   'ГОТОВЫ К ПОДЪЁМУ?',
-      p:    'Вступайте в бету сегодня и присоединяйтесь к топ-1% творческих студий, строящих интерактивный 2D &amp; 3D-контент следующего поколения.',
-      btn1: 'Вступить в бету',
-      btn2: 'Связаться с продажами',
-    },
-    footer: {
-      tagline:          'Технический редактор для высокопроизводительных 2D &amp; 3D-креативов. Создан для разработчика-алхимика.',
-      platformHeading:  'Платформа',
-      platformLinks:    ['Документация', 'Витрина', 'Цены'],
-      communityHeading: 'Сообщество',
-      communityLinks:   ['Discord', 'GitHub', 'Twitter'],
-      companyHeading:   'Компания',
-      companyLinks:     ['Вакансии', 'Конфиденциальность'],
-      copyright:        '&copy; 2026 Pix3 Technologies. Создано для технического алхимика.',
+      en: { href: '/', active: false },
+      ru: { href: '/ru/', active: true },
     },
   },
 };
 
-// ── ICONS (shared SVG strings) ────────────────────────────────────────────────
+// Deep-merge locale overrides onto the English reference dictionary. Arrays are
+// replaced wholesale (a partially translated list would read worse than an
+// English one); missing keys inherit English.
+function withFallback(base, override) {
+  if (Array.isArray(base)) return Array.isArray(override) ? override : base;
+  if (base && typeof base === 'object') {
+    const out = {};
+    for (const key of Object.keys(base)) {
+      const o = override && typeof override === 'object' ? override[key] : undefined;
+      out[key] = o === undefined ? base[key] : withFallback(base[key], o);
+    }
+    return out;
+  }
+  return override === undefined ? base : override;
+}
+
+// ── ICONS ─────────────────────────────────────────────────────────────────────
+// One stroke set, all currentColor, no colour literals inside the markup.
+
+const stroke = (size, d, extra = '') =>
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}${extra}</svg>`;
+
+const solid = (size, d) =>
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${d}</svg>`;
 
 const ICONS = {
-  techThreejs:  `<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`,
-  techAI:       `<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>`,
-  techPWA:      `<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>`,
-  techWebGL:    `<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>`,
-  pipeCard1:    `<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>`,
-  pipeCard2:    `<svg class="w-6 h-6 text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>`,
-  featureAI:    `<svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>`,
-  featurePublish:`<svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>`,
-  featureCollab: `<svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>`,
-  featureLib:   `<svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>`,
-  dxTS:         `<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>`,
-  dxAutoload:   `<svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
-  dxComponent:  `<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>`,
-  futureCheck:  `<svg class="w-3 h-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>`,
-  futureLink:   `<svg class="w-24 h-24 text-primary opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.585 15.585a6.215 6.215 0 001.353-1.353L21 10.322a3.522 3.522 0 10-4.981-4.981l-3.91 3.91a6.215 6.215 0 00-1.353 1.353m5.829 5.829a6.215 6.215 0 01-1.353 1.353L10.322 21a3.522 3.522 0 11-4.981-4.981l3.91-3.91a6.215 6.215 0 011.353-1.353m5.829 5.829a6.215 6.215 0 11-5.83-5.83"></path></svg>`,
-  heroFlash:    `<svg class="w-5 h-5 text-tertiary" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
-  heroExternal: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>`,
-  footerGlobe:  `<svg class="w-5 h-5 text-zinc-700 hover:text-primary transition-colors cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>`,
-  footerSettings:`<svg class="w-5 h-5 text-zinc-700 hover:text-primary transition-colors cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>`,
+  external: (s = 15) => stroke(s, '<path d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>'),
+  play: (s = 14) => solid(s, '<path d="M8 5.5v13l11-6.5z"/>'),
+  bolt: (s = 13) => solid(s, '<path d="M13 2 4 14h6l-1 8 9-12h-6z"/>'),
+  star: (s = 12) => solid(s, '<path d="M12 2.6l2.7 5.9 6.3.7-4.7 4.3 1.3 6.3L12 16.6l-5.6 3.2 1.3-6.3L3 9.2l6.3-.7z"/>'),
+  cube: (s = 17) => stroke(s, '<path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M12 22V12L3 7M12 12l9-5"/>'),
+  robot: (s = 17) => stroke(s, '<path d="M12 3v3M5 9h14v9H5zM9 22h6"/><circle cx="9.5" cy="13.5" r="1.2"/><circle cx="14.5" cy="13.5" r="1.2"/>'),
+  device: (s = 17) => stroke(s, '<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>'),
+  brackets: (s = 17) => stroke(s, '<path d="m9 8-4 4 4 4M15 8l4 4-4 4"/>'),
+  window: (s = 17) => stroke(s, '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/>'),
+  contrast: (s = 17) => stroke(s, '<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18"/>'),
+  sparkle: (s = 18) => solid(s, '<path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8z"/><path d="M18.5 14.5l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9z"/>'),
+  upload: (s = 18) => stroke(s, '<path d="M12 16V4m0 0L8 8m4-4 4 4M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>', ''),
+  users: (s = 18) => stroke(s, '<circle cx="9" cy="8" r="3"/><circle cx="16.5" cy="9.5" r="2.3"/><path d="M3 19c0-3 2.7-5 6-5s6 2 6 5M15.5 14c2.6.3 5.5 1.6 5.5 5"/>'),
+  grid: (s = 18) => stroke(s, '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'),
+  globe: (s = 18) => stroke(s, '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.4 4 5.6 4 9s-1.5 6.6-4 9c-2.5-2.4-4-5.6-4-9s1.5-6.6 4-9z"/>'),
+  check: (s = 12) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>`,
+  burger: (s = 18) => stroke(s, '<path d="M4 7h16M4 12h16M4 17h16"/>'),
+  close: (s = 18) => stroke(s, '<path d="M6 6l12 12M18 6 6 18"/>'),
 };
 
-const TECH_ICONS = [ICONS.techThreejs, ICONS.techAI, ICONS.techPWA, ICONS.techWebGL];
+const TECH_ICONS = [ICONS.cube(), ICONS.robot(), ICONS.device(), ICONS.brackets()];
+
+// ── COMPONENTS ────────────────────────────────────────────────────────────────
+
+/** Button. variant: 'p' (primary, the page's only accent fill) | 's' | 'sm'. */
+function btn({ href, label, variant = 'p', small = false, icon = '', attrs = '' }) {
+  const cls = `btn ${variant}${small ? ' sm' : ''}`;
+  return `<a class="${cls}" href="${href}"${attrs}>${icon}${label}</a>`;
+}
+
+/** Bordered, uppercase mono link — used for the GitHub link in the header. */
+function ghost({ href, label, note = '', attrs = '' }) {
+  return `<a class="ghost" href="${href}"${attrs}>${label}${note ? ` <span class="n">${note}</span>` : ''}</a>`;
+}
+
+/** Pill label with an indicator dot. `mint` marks the secondary accent. */
+function eyebrow(text, mint = false) {
+  return `<span class="eyebrow mono"><span class="dot${mint ? ' m' : ''}"></span>${text}</span>`;
+}
+
+/** Eyebrow + h2 (with optional accented tail) + lead. */
+function sectionHead({ eyebrow: eb, mint = false, h2, highlight = '', lead, center = false }) {
+  const tail = highlight ? ` <span class="em">${highlight}</span>` : '';
+  return `<div class="head${center ? ' center' : ''}">${eyebrow(eb, mint)}
+                <h2>${h2}${tail}</h2>
+                <p class="lead">${lead}</p>
+            </div>`;
+}
+
+/** <picture> with a WebP source. Always sized, to keep CLS at zero. */
+function picture({ src, alt, width, height, cls = '', lazy = true, extra = '' }) {
+  const webp = src.replace(/\.(png|jpg|jpeg)$/, '.webp');
+  const loading = lazy ? ' loading="lazy"' : ' fetchpriority="high"';
+  return `<picture>
+                            <source srcset="${webp}" type="image/webp">
+                            <img src="${src}" alt="${alt}" width="${width}" height="${height}"${cls ? ` class="${cls}"` : ''}${loading} decoding="async"${extra}>
+                        </picture>`;
+}
+
+function logo() {
+  // No aria-label: the link text ("pix3") is the accessible name, and an
+  // aria-label that omits the visible text trips label-content-name-mismatch.
+  return `<a class="logo" href="#top"><span class="mark" aria-hidden="true">P</span>pix<sup>3</sup></a>`;
+}
+
+function langSwitcher(sw, extraClass = '') {
+  return `<div class="lang${extraClass ? ` ${extraClass}` : ''}">
+                <a href="${sw.en.href}"${sw.en.active ? ' class="on" aria-current="page"' : ''} lang="en">EN</a>
+                <span aria-hidden="true">|</span>
+                <a href="${sw.ru.href}"${sw.ru.active ? ' class="on" aria-current="page"' : ''} lang="ru">RU</a>
+            </div>`;
+}
 
 // ── TEMPLATE ──────────────────────────────────────────────────────────────────
 
-function renderPage(l) {
-  const sw = l.switcher;
+function renderPage(locale) {
+  const t = withFallback(strings.en, strings[locale.lang]);
+  const sw = locale.switcher;
+  const { hero: h, workflow: wf, pipeline: pi, features: ft, band: bd, dx, future: fu, cta: c, footer: fo } = t;
 
-  const langSwitcher = `<div class="flex items-center gap-0.5 text-xs font-headline font-bold tracking-wider">
-                <a href="${sw.en.href}"${sw.en.active ? ' aria-current="page"' : ''} class="${sw.en.active ? 'text-on-surface' : 'text-zinc-500 hover:text-yellow-400'} transition-colors px-1.5 py-1">EN</a>
-                <span class="text-zinc-700 select-none">|</span>
-                <a href="${sw.ru.href}"${sw.ru.active ? ' aria-current="page"' : ''} class="${sw.ru.active ? 'text-on-surface' : 'text-zinc-500 hover:text-yellow-400'} transition-colors px-1.5 py-1">RU</a>
-            </div>`;
+  const navLinks = [
+    { href: '#pipeline', label: t.nav.product },
+    { href: '#features', label: t.nav.features },
+    { href: '#dx', label: t.nav.developers },
+    { href: '#pricing', label: t.nav.pricing },
+  ];
 
-  const alternateTags = l.alternates
+  const alternateTags = locale.alternates
     .map(alt => `    <link rel="alternate" hreflang="${alt.lang}" href="${alt.href}">`)
     .join('\n');
 
-  const h = l.hero;
-  const pi = l.pipeline;
-  const ft = l.features;
-  const dx = l.dx;
-  const fu = l.future;
-  const c = l.cta;
-  const fo = l.footer;
+  const cyrillicPreloads = locale.preloadCyrillic
+    ? `\n    <link rel="preload" href="/fonts/ibmplexsans-cyrillic.woff2" as="font" type="font/woff2" crossorigin="anonymous">`
+    : '';
+
+  const githubGhost = ghost({
+    href: SITE.github,
+    label: t.nav.github,
+    note: `${ICONS.star()} ${SITE.githubStars}`,
+    attrs: ` target="_blank" rel="noopener noreferrer" aria-label="${t.nav.github} — ${SITE.githubStars} ${t.a11y.stars}"`,
+  });
+
+  const footerColumn = (heading, key) =>
+    `<div>
+                    <h2>${heading}</h2>
+                    <ul>
+                        ${fo[key]
+                          .map((label, i) => {
+                            const href = FOOTER_HREFS[key][i] || '#';
+                            const ext = href.startsWith('http')
+                              ? ' target="_blank" rel="noopener noreferrer"'
+                              : '';
+                            return `<li><a href="${href}"${ext}>${label}</a></li>`;
+                          })
+                          .join('\n                        ')}
+                    </ul>
+                </div>`;
 
   return `<!DOCTYPE html>
 
-<html class="dark" lang="${l.lang}">
+<html class="dark no-js" lang="${locale.lang}">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>${l.meta.title}</title>
-    <meta name="description" content="${l.meta.description}">
-    <link rel="canonical" href="${l.canonical}">
+    <title>${t.meta.title}</title>
+    <meta name="description" content="${t.meta.description}">
+    <link rel="canonical" href="${locale.canonical}">
 ${alternateTags}
     <link rel="icon" type="image/webp" href="/media/icon.webp">
     <!-- Open Graph / Social Preview -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="${l.meta.title}">
-    <meta property="og:description" content="${l.meta.description}">
-    <meta property="og:url" content="${l.ogUrl}">
+    <meta property="og:title" content="${t.meta.title}">
+    <meta property="og:description" content="${t.meta.description}">
+    <meta property="og:url" content="${locale.ogUrl}">
     <meta property="og:site_name" content="Pix3">
-    <meta property="og:locale" content="${l.ogLocale}">
-    <meta property="og:image" content="https://pix3.dev/media/editor-interface.jpg">
-    <meta property="og:image:secure_url" content="https://pix3.dev/media/editor-interface.jpg">
-    <meta property="og:image:alt" content="${l.meta.ogImageAlt}">
+    <meta property="og:locale" content="${locale.ogLocale}">
+    <meta property="og:image" content="${SITE.ogImage}">
+    <meta property="og:image:secure_url" content="${SITE.ogImage}">
+    <meta property="og:image:alt" content="${t.meta.ogImageAlt}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="${l.meta.title}">
-    <meta name="twitter:description" content="${l.meta.description}">
-    <meta name="twitter:image" content="https://pix3.dev/media/editor-interface.jpg">
-    <meta name="twitter:image:alt" content="${l.meta.ogImageAlt}">
+    <meta name="twitter:title" content="${t.meta.title}">
+    <meta name="twitter:description" content="${t.meta.description}">
+    <meta name="twitter:image" content="${SITE.ogImage}">
+    <meta name="twitter:image:alt" content="${t.meta.ogImageAlt}">
     <!-- Preload critical resources -->
-    <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="preload" href="/fonts/spacegrotesk.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="/fonts/ibmplexsans-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous">${cyrillicPreloads}
     <link rel="preload" as="image" href="/media/editor-interface.jpg"
         imagesrcset="/media/editor-interface.webp" type="image/webp" fetchpriority="high">
 
-    <link rel="stylesheet" href="${l.cssPath}">
+    <link rel="stylesheet" href="${locale.cssPath}">
+    <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 
-<body class="selection:bg-primary selection:text-on-primary-container overflow-x-hidden">
+<body>
     <!-- Yandex.Metrika counter -->
     <noscript>
-        <div><img src="https://mc.yandex.ru/watch/108302071" style="position:absolute; left:-9999px;" alt="" /></div>
+        <div><img src="https://mc.yandex.ru/watch/${SITE.metrikaId}" style="position:absolute; left:-9999px;" alt="" /></div>
     </noscript>
-    <!-- Top Navigation Bar -->
-    <nav class="fixed top-0 w-full z-50 bg-zinc-950/60 backdrop-blur-xl no-line-rule bg-zinc-900/50">
-        <div class="flex justify-between items-center px-8 h-16 max-w-screen-2xl mx-auto w-full">
-            <div class="flex items-center space-x-4">
-                <a href="/" class="flex items-center">
-                    <picture>
-                        <source srcset="/media/splash-logo.webp" type="image/webp">
-                        <img src="/media/splash-logo.png" alt="Pix3" class="h-8 w-auto"
-                            width="756" height="300" decoding="async">
-                    </picture>
-                </a>
-                <a href="https://github.com/pix3dev/pix3" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center">
-                    <img src="https://img.shields.io/github/stars/pix3dev/pix3?style=social" alt="GitHub stars" class="h-6">
-                </a>
-            </div>
-            <div class="hidden md:flex items-center space-x-8 font-['Space_Grotesk'] text-sm tracking-tight">
-                <a class="text-zinc-400 font-medium hover:text-yellow-400 transition-colors duration-300"
-                    href="#">${l.nav.product}</a>
-                <a class="text-zinc-400 font-medium hover:text-yellow-400 transition-colors duration-300"
-                    href="#">${l.nav.features}</a>
-                <a class="text-zinc-400 font-medium hover:text-yellow-400 transition-colors duration-300"
-                    href="#">${l.nav.showcase}</a>
-                <a class="text-zinc-400 font-medium hover:text-yellow-400 transition-colors duration-300"
-                    href="#">${l.nav.pricing}</a>
-            </div>
-            ${langSwitcher}
-            <a href="https://editor.pix3.dev"
-                class="bg-primary text-on-primary px-5 py-2 rounded-sm font-semibold text-sm scale-95 active:scale-90 transition-transform uppercase tracking-wider inline-flex items-center gap-2">
-                ${l.nav.openEditor}
-            </a>
+
+    <a class="skip-link" href="#main">${t.a11y.skip}</a>
+
+    <header id="hdr">
+        <div class="wrap nav">
+            ${logo()}
+            <nav aria-label="${t.a11y.mainNav}">
+                ${navLinks.map(n => `<a href="${n.href}">${n.label}</a>`).join('\n                ')}
+            </nav>
+            <span class="sp"></span>
+            ${githubGhost}
+            ${langSwitcher(sw)}
+            ${btn({ href: SITE.editor, label: t.nav.openEditor, variant: 'p', small: true })}
+            <button class="burger" type="button" id="burger" aria-label="${t.a11y.openMenu}" aria-expanded="false" aria-controls="drawer">${ICONS.burger()}</button>
         </div>
-    </nav>
-    <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 px-8 hero-gradient overflow-hidden">
-        <div class="max-w-7xl mx-auto text-center relative z-10">
-            <div
-                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-highest border border-outline-variant/20 mb-8">
-                <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                <span class="text-[10px] font-bold tracking-[0.2em] text-on-surface-variant uppercase">${h.badge}</span>
+    </header>
+
+    <!-- Mobile drawer (below 640px) -->
+    <div class="drawer" id="drawer" aria-hidden="true">
+        <div class="wrap">
+            <div class="dhead">
+                ${logo()}
+                <span class="sp"></span>
+                <button class="burger" type="button" id="drawer-close" aria-label="${t.a11y.closeMenu}">${ICONS.close()}</button>
             </div>
-            <h1
-                class="font-headline text-5xl md:text-7xl font-bold tracking-tight text-on-surface max-w-4xl mx-auto mb-6">
-                ${h.h1Before} <span class="text-primary italic">${h.h1Highlight}</span> ${h.h1After}
-            </h1>
-            <p class="font-body text-lg text-on-surface-variant max-w-2xl mx-auto mb-10 leading-relaxed">
-                ${h.p}
-            </p>
-            <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-8">
-                <a href="https://editor.pix3.dev"
-                    class="w-full md:w-auto px-8 py-4 bg-primary text-on-primary font-bold rounded-sm text-sm uppercase tracking-widest hover:brightness-110 transition-all inline-flex items-center justify-center gap-2">
-                    ${ICONS.heroExternal}
-                    ${h.cta1}
-                </a>
-                <button
-                    class="w-full md:w-auto px-8 py-4 border border-outline-variant/30 text-on-surface font-bold rounded-sm text-sm uppercase tracking-widest hover:bg-surface-container-highest transition-all">
-                    ${h.cta2}
-                </button>
+            <nav aria-label="${t.a11y.mainNav}">
+                ${navLinks.map(n => `<a href="${n.href}" data-nav-close>${n.label}</a>`).join('\n                ')}
+            </nav>
+            <div class="dfoot">
+                ${btn({ href: SITE.editor, label: t.nav.openEditor, variant: 'p' })}
+                ${githubGhost}
+                ${langSwitcher(sw)}
             </div>
-            <div class="flex items-center justify-center gap-2 text-sm text-on-surface-variant mb-20">
-                ${ICONS.heroFlash}
-                <span>${h.subline}</span>
-            </div>
-            <!-- Main Editor Visual -->
-            <div class="relative group">
-                <div
-                    class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-tertiary/20 rounded-xl blur-2xl opacity-50 group-hover:opacity-75 transition-opacity">
-                </div>
-                <div
-                    class="relative bg-surface-container-lowest rounded-lg border border-outline-variant/20 overflow-hidden shadow-2xl">
-                    <picture>
-                        <source srcset="/media/editor-interface.webp" type="image/webp">
-                        <img class="w-full h-auto object-cover opacity-90"
-                            alt="${h.editorAlt}"
-                            src="/media/editor-interface.jpg" width="1469" height="791"
-                            fetchpriority="high" decoding="async" />
-                    </picture>
-                    <!-- Floating Tech Accents -->
-                    <div class="absolute top-4 left-4 glass-panel p-3 rounded border border-white/5 hidden md:block">
-                        <div class="flex items-center gap-4">
-                            <div class="flex flex-col items-start">
-                                <span class="text-[10px] text-primary font-bold uppercase tracking-tighter">FPS</span>
-                                <span class="text-xl font-headline font-bold">120.0</span>
-                            </div>
-                            <div class="w-px h-8 bg-outline-variant/30"></div>
-                            <div class="flex flex-col items-start">
-                                <span class="text-[10px] text-tertiary font-bold uppercase tracking-tighter">Draw
-                                    Calls</span>
-                                <span class="text-xl font-headline font-bold">42</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Tech Specs Strip -->
-    <div class="bg-surface-container-low border-y border-outline-variant/10 py-6">
-        <div class="max-w-7xl mx-auto px-8 flex flex-wrap justify-center md:justify-between items-center gap-8">
-            ${l.techStrip.map((label, i) => `<div
-                class="flex items-center gap-3 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
-                ${TECH_ICONS[i]}
-                <span class="font-headline font-bold text-sm tracking-widest uppercase">${label}</span>
-            </div>`).join('\n            ')}
         </div>
     </div>
-    <!-- Unified 2D/3D Rendering Pipeline -->
-    <section class="py-24 px-8 bg-surface-container-low">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+    <main id="main" tabindex="-1">
+        <!-- Hero -->
+        <div class="hero" id="top">
+            <div class="grid-bg" aria-hidden="true"></div>
+            <div class="wrap">
+                ${eyebrow(h.eyebrow)}
+                <h1>${h.h1Before} <i>${h.h1Highlight}</i> ${h.h1After}</h1>
+                <p class="lead">${h.p}</p>
+                <div class="cta">
+                    ${btn({ href: SITE.editor, label: h.cta1, variant: 'p', icon: ICONS.external() })}
+                    ${btn({ href: '#demo', label: h.cta2, variant: 's', icon: ICONS.play(), attrs: ' id="watch-demo"' })}
+                </div>
+                <p class="trust">
+                    <span><span class="ic">${ICONS.bolt()}</span>${h.trust[0]}</span>
+                    ${h.trust.slice(1).map(item => `<span>${item}</span>`).join('\n                    ')}
+                </p>
+
+                <!-- Editor shot / demo player -->
+                <div class="shot" id="demo">
+                    <div class="frame">
+                        <div class="bar">
+                            <i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>
+                            <span class="t">${h.frameTitle}</span>
+                        </div>
+                        <div class="media" id="heromedia" data-video-id="${SITE.demoVideoId}"
+                            data-video-title="${t.a11y.videoTitle}">
+                            ${picture({
+                              src: '/media/editor-interface.jpg',
+                              alt: h.editorAlt,
+                              width: 1469,
+                              height: 791,
+                              lazy: false,
+                            })}
+                            <button class="play" type="button" id="playbtn" aria-label="${t.a11y.watchDemo}">
+                                <span class="pc" aria-hidden="true">${ICONS.play(22)}</span>
+                                <span class="pl mono">${h.playLabel}</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chip a" aria-hidden="true">
+                        <div class="k">${h.chips.fps}</div>
+                        <div class="v">120.0</div>
+                    </div>
+                    <div class="chip b" aria-hidden="true">
+                        <div class="k">${h.chips.drawCalls}</div>
+                        <div class="v">42</div>
+                    </div>
+                    <div class="chip c" aria-hidden="true">
+                        <div class="k">${h.chips.buildSize}</div>
+                        <div class="v g">−90%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech strip -->
+        <div class="strip">
+            <div class="wrap">
+                ${t.techStrip.map((label, i) => `<div>${TECH_ICONS[i]}${label}</div>`).join('\n                ')}
+            </div>
+        </div>
+
+        <!-- Workflow -->
+        <section class="reveal" id="workflow">
+            <div class="wrap">
+                ${sectionHead({
+                  eyebrow: wf.eyebrow,
+                  h2: `${wf.h2Line1}<br>${wf.h2Line2}`,
+                  lead: wf.p,
+                  center: true,
+                })}
+                <div class="steps">
+                    ${wf.steps
+                      .map(
+                        s => `<div class="step">
+                        <div class="num">${s.num}</div>
+                        <h3>${s.title}</h3>
+                        <p>${s.p}</p>
+                        <div class="meta">${s.meta}</div>
+                    </div>`
+                      )
+                      .join('\n                    ')}
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture / pipeline -->
+        <section class="reveal section-tight" id="pipeline">
+            <div class="wrap two">
                 <div>
-                    <div class="inline-block px-3 py-1 bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest mb-6">
-                        ${pi.badge}</div>
-                    <h2 class="font-headline text-4xl font-bold mb-6 text-on-surface">${pi.h2} <span class="text-primary">${pi.h2Highlight}</span></h2>
-                    <p class="text-on-surface-variant text-lg leading-relaxed mb-8">
-                        ${pi.p}
-                    </p>
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-4 p-4 bg-surface-container rounded-lg border border-outline-variant/10">
-                            <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
-                                ${ICONS.pipeCard1}
-                            </div>
+                    ${sectionHead({
+                      eyebrow: pi.eyebrow,
+                      h2: pi.h2,
+                      highlight: pi.h2Highlight,
+                      lead: pi.p,
+                    })}
+                    <div class="feats">
+                        <div class="feat">
+                            <span class="ic">${ICONS.window()}</span>
                             <div>
-                                <h4 class="font-bold text-on-surface mb-1">${pi.card1Title}</h4>
-                                <p class="text-sm text-on-surface-variant">${pi.card1p}</p>
+                                <h3>${pi.card1Title}</h3>
+                                <p>${pi.card1p}</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-4 p-4 bg-surface-container rounded-lg border border-outline-variant/10">
-                            <div class="w-10 h-10 rounded-lg bg-tertiary/20 flex items-center justify-center flex-shrink-0">
-                                ${ICONS.pipeCard2}
-                            </div>
+                        <div class="feat">
+                            <span class="ic">${ICONS.contrast()}</span>
                             <div>
-                                <h4 class="font-bold text-on-surface mb-1">${pi.card2Title}</h4>
-                                <p class="text-sm text-on-surface-variant">${pi.card2p}</p>
+                                <h3>${pi.card2Title}</h3>
+                                <p>${pi.card2p}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="relative">
-                    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/20 overflow-hidden p-6">
-                        <div class="flex items-center gap-2 mb-4 border-b border-outline-variant/20 pb-3">
-                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                            <span class="ml-2 text-xs text-zinc-500 font-mono">player-controller.ts</span>
-                        </div>
-                        <pre class="text-xs md:text-sm font-mono text-zinc-300 overflow-x-auto"><code><span class="text-purple-400">@autoload</span>()
-<span class="text-purple-400">export class</span> <span class="text-yellow-300">PlayerController</span> <span class="text-purple-400">extends</span> <span class="text-blue-300">Component</span> {
-    
-    <span class="text-zinc-500">// Unity/Godot-style lifecycle hooks</span>
-    <span class="text-purple-400">onStart</span>() {
-        <span class="text-purple-400">this</span>.velocity = <span class="text-blue-300">vec3</span>.zero();
-        <span class="text-purple-400">this</span>.speed = <span class="text-orange-300">10</span>;
+                <div class="code">
+                    <div class="bar">
+                        <i class="r" aria-hidden="true"></i><i class="y" aria-hidden="true"></i><i class="g" aria-hidden="true"></i>
+                        <span class="t">${pi.codeTitle}</span>
+                    </div>
+                    <pre><code><span class="dec">@autoload</span>()
+<span class="kw">export class</span> <span class="fn">PlayerController</span> <span class="kw">extends</span> Component {
+
+    <span class="cm">// Unity/Godot-style lifecycle hooks</span>
+    <span class="fn">onStart</span>() {
+        <span class="kw">this</span>.velocity = vec3.<span class="fn">zero</span>();
+        <span class="kw">this</span>.speed = <span class="num2">10</span>;
     }
 
-    <span class="text-purple-400">onUpdate</span>(<span class="text-blue-300">dt</span>: <span class="text-green-300">number</span>) {
-        <span class="text-purple-400">const</span> input = <span class="text-blue-300">Input</span>.<span class="text-yellow-300">getAxis</span>(<span class="text-green-300">"Movement"</span>);
-        
-        <span class="text-purple-400">this</span>.entity.<span class="text-yellow-300">translate</span>(input.<span class="text-yellow-300">mul</span>(<span class="text-purple-400">this</span>.speed * dt));
-        
-        <span class="text-purple-400">if</span> (<span class="text-blue-300">Input</span>.<span class="text-yellow-300">isJustPressed</span>(<span class="text-green-300">"Jump"</span>)) {
-            <span class="text-purple-400">this</span>.<span class="text-yellow-300">jump</span>();
+    <span class="fn">onUpdate</span>(dt: <span class="kw">number</span>) {
+        <span class="kw">const</span> input = Input.<span class="fn">getAxis</span>(<span class="str">"Movement"</span>);
+
+        <span class="kw">this</span>.entity.<span class="fn">translate</span>(input.<span class="fn">mul</span>(<span class="kw">this</span>.speed * dt));
+
+        <span class="kw">if</span> (Input.<span class="fn">isJustPressed</span>(<span class="str">"Jump"</span>)) {
+            <span class="kw">this</span>.<span class="fn">jump</span>();
         }
     }
 
-    <span class="text-purple-400">@property</span>({ <span class="text-yellow-300">range</span>: [<span class="text-orange-300">1</span>, <span class="text-orange-300">20</span>] })
-    speed: <span class="text-green-300">number</span> = <span class="text-orange-300">10</span>;
+    <span class="dec">@property</span>({ range: [<span class="num2">1</span>, <span class="num2">20</span>] })
+    speed: <span class="kw">number</span> = <span class="num2">10</span>;
 }</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capabilities bento -->
+        <section class="reveal" id="features">
+            <div class="wrap">
+                ${sectionHead({
+                  eyebrow: ft.eyebrow,
+                  h2: ft.h2,
+                  highlight: ft.h2Highlight,
+                  lead: ft.p,
+                })}
+                <div class="bento">
+                    <div class="card wide">
+                        <div class="txt">
+                            <span class="ic">${ICONS.sparkle()}</span>
+                            <h3>${ft.f1Title}</h3>
+                            <p>${ft.f1p}</p>
+                            <div class="tags">${ft.f1Tags.map(tag => `<span>${tag}</span>`).join('')}</div>
+                        </div>
+                        <div class="vis">
+                            ${picture({
+                              src: '/media/ai-asset-schematic.png',
+                              alt: ft.f1ImageAlt,
+                              width: 512,
+                              height: 512,
+                            })}
+                        </div>
                     </div>
-                    <div class="absolute -bottom-4 -right-4 bg-surface-container-highest px-4 py-2 rounded-lg border border-outline-variant/20 shadow-xl">
-                        <span class="text-xs text-on-surface-variant">TypeScript</span>
+                    <div class="card">
+                        <span class="ic">${ICONS.upload()}</span>
+                        <h3>${ft.f2Title}</h3>
+                        <p>${ft.f2p}</p>
+                        <div class="rows">
+                            ${ft.f2Rows
+                              .map(
+                                name =>
+                                  `<div class="row">${name} <b><span class="dot m"></span>${ft.f2Validated}</b></div>`
+                              )
+                              .join('\n                            ')}
+                        </div>
+                    </div>
+                    <div class="card">
+                        <span class="ic">${ICONS.users()}</span>
+                        <h3>${ft.f3Title}</h3>
+                        <p>${ft.f3p}</p>
+                    </div>
+                    <div class="card wide flip">
+                        <div class="txt">
+                            <span class="ic">${ICONS.grid()}</span>
+                            <h3>${ft.f4Title}</h3>
+                            <p>${ft.f4p}</p>
+                        </div>
+                        <div class="vis">
+                            ${picture({
+                              src: '/media/asset-library-grid.png',
+                              alt: ft.f4ImageAlt,
+                              width: 512,
+                              height: 512,
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Features Bento Grid -->
-    <section class="py-24 px-8 bg-surface">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-16">
-                <h2 class="font-headline text-4xl font-bold mb-4">${ft.h2} <span
-                        class="text-primary">${ft.h2Highlight}</span></h2>
-                <p class="text-on-surface-variant max-w-xl">${ft.p}</p>
+        </section>
+
+        <!-- Why teams switch -->
+        <div class="band reveal">
+            <div class="wrap">
+                <div>
+                    ${eyebrow(bd.eyebrow)}
+                    <blockquote>${bd.quote}</blockquote>
+                    <div class="who">
+                        <span class="av" aria-hidden="true">${bd.avatar}</span>
+                        <div><strong>${bd.whoName}</strong><br>${bd.whoText}</div>
+                    </div>
+                </div>
+                <div class="stats">
+                    ${bd.stats
+                      .map(
+                        s => `<div>
+                        <div class="v">${s.v}</div>
+                        <div class="k">${s.k}</div>
+                    </div>`
+                      )
+                      .join('\n                    ')}
+                </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                <!-- Feature 1: AI Asset Creation -->
-                <div
-                    class="md:col-span-8 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
-                    <div class="flex flex-col md:flex-row gap-8 h-full">
-                        <div class="flex-1">
-                            ${ICONS.featureAI}
-                            <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface mt-4">${ft.f1Title}</h3>
-                            <p class="text-on-surface-variant text-sm leading-relaxed mb-6">
-                                ${ft.f1p}
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                ${ft.f1Tags.map(tag => `<span
-                                    class="px-2 py-1 bg-surface-container-highest text-[10px] font-bold text-primary uppercase rounded">${tag}</span>`).join('\n                                ')}
+        </div>
+
+        <!-- Developer experience -->
+        <section class="reveal" id="dx">
+            <div class="wrap">
+                ${sectionHead({
+                  eyebrow: dx.eyebrow,
+                  mint: true,
+                  h2: dx.h2,
+                  highlight: dx.h2Highlight,
+                  lead: dx.p,
+                  center: true,
+                })}
+                <div class="dx">
+                    <div class="card">
+                        <span class="ic">${ICONS.brackets(18)}</span>
+                        <h3>${dx.card1Title}</h3>
+                        <p>${dx.card1p}</p>
+                        <pre><code><span class="dec">@property</span>()
+speed: <span class="kw">number</span> = <span class="num2">10</span>;</code></pre>
+                    </div>
+                    <div class="card">
+                        <span class="ic">${ICONS.bolt(18)}</span>
+                        <h3>${dx.card2Title}</h3>
+                        <p>${dx.card2p}</p>
+                        <pre><code><span class="dec">@autoload</span>()
+<span class="kw">class</span> <span class="fn">AudioManager</span> {
+  <span class="fn">playSfx</span>(name: <span class="kw">string</span>) {}
+}</code></pre>
+                    </div>
+                    <div class="card">
+                        <span class="ic">${ICONS.globe()}</span>
+                        <h3>${dx.card3Title}</h3>
+                        <p>${dx.card3p}</p>
+                        <pre><code>entity.<span class="fn">addComponent</span>(RigidBody);
+entity.<span class="fn">addComponent</span>(Collider);</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coming soon -->
+        <section class="reveal section-tight" id="future">
+            <div class="wrap two">
+                <div>
+                    ${sectionHead({
+                      eyebrow: fu.eyebrow,
+                      mint: true,
+                      h2: fu.h2,
+                      highlight: fu.h2Highlight,
+                      lead: fu.p,
+                    })}
+                    <div class="checks">
+                        <div class="check">
+                            <span class="tick" aria-hidden="true">${ICONS.check()}</span>
+                            <div>
+                                <h3>${fu.item1Title}</h3>
+                                <p>${fu.item1p}</p>
                             </div>
                         </div>
-                        <div class="flex-1 bg-surface-container-lowest rounded p-4 border border-outline-variant/10">
-                            <picture>
-                                <source srcset="/media/ai-asset-schematic.webp" type="image/webp">
-                                <img class="w-full h-full object-cover rounded opacity-80"
-                                    alt="${ft.f1ImageAlt}"
-                                    src="/media/ai-asset-schematic.png" width="512" height="512"
-                                    loading="lazy" decoding="async" />
-                            </picture>
+                        <div class="check">
+                            <span class="tick" aria-hidden="true">${ICONS.check()}</span>
+                            <div>
+                                <h3>${fu.item2Title}</h3>
+                                <p>${fu.item2p}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Feature 2: One-Click Publishing -->
-                <div
-                    class="md:col-span-4 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
-                    ${ICONS.featurePublish}
-                    <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface mt-4">${ft.f2Title}</h3>
-                    <p class="text-on-surface-variant text-sm leading-relaxed mb-6">
-                        ${ft.f2p}
-                    </p>
-                    <div class="space-y-3">
-                        <div
-                            class="flex items-center justify-between p-2 bg-surface-container-highest rounded text-[10px] font-bold text-on-surface-variant">
-                            <span>UNITY LEVELPLAY</span>
-                            <span class="text-tertiary">VALIDATED</span>
-                        </div>
-                        <div
-                            class="flex items-center justify-between p-2 bg-surface-container-highest rounded text-[10px] font-bold text-on-surface-variant">
-                            <span>APPLOVIN MREC</span>
-                            <span class="text-tertiary">VALIDATED</span>
-                        </div>
-                    </div>
+                <div class="vis">
+                    ${picture({
+                      src: '/media/bridge-visual.png',
+                      alt: fu.imageAlt,
+                      width: 512,
+                      height: 512,
+                    })}
                 </div>
-                <!-- Feature 3: Real-Time Collab -->
-                <div
-                    class="md:col-span-5 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
-                    ${ICONS.featureCollab}
-                    <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface mt-4">${ft.f3Title}</h3>
-                    <p class="text-on-surface-variant text-sm leading-relaxed">
-                        ${ft.f3p}
-                    </p>
-                </div>
-                <!-- Feature 4: Asset Library -->
-                <div
-                    class="md:col-span-7 bg-surface-container-low rounded-lg p-8 border border-outline-variant/10 hover:border-primary/30 transition-colors">
-                    <div class="flex flex-col md:flex-row gap-8 items-center">
-                        <div class="flex-1">
-                            ${ICONS.featureLib}
-                            <h3 class="font-headline text-2xl font-bold mb-3 text-on-surface mt-4">${ft.f4Title}</h3>
-                            <p class="text-on-surface-variant text-sm leading-relaxed">
-                                ${ft.f4p}
-                            </p>
-                        </div>
-                        <div
-                            class="w-full md:w-48 h-32 bg-surface-container-lowest rounded border border-outline-variant/20 overflow-hidden">
-                            <picture>
-                                <source srcset="/media/asset-library-grid.webp" type="image/webp">
-                                <img class="w-full h-full object-cover"
-                                    alt="${ft.f4ImageAlt}"
-                                    src="/media/asset-library-grid.png" width="512" height="512"
-                                    loading="lazy" decoding="async" />
-                            </picture>
-                        </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <div class="final reveal" id="pricing">
+            <div class="wrap">
+                <div class="box">
+                    <h2>${c.h2}</h2>
+                    <p>${c.p}</p>
+                    <div class="cta">
+                        ${btn({ href: SITE.editor, label: c.btn1, variant: 'p' })}
+                        ${btn({ href: '#', label: c.btn2, variant: 's' })}
                     </div>
+                    <div class="fine">${c.fine}</div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Developer Experience -->
-    <section class="py-24 px-8 bg-surface">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <div class="inline-block px-3 py-1 bg-tertiary/10 border border-tertiary/20 text-tertiary text-[10px] font-bold uppercase tracking-widest mb-6">
-                    ${dx.badge}</div>
-                <h2 class="font-headline text-4xl font-bold mb-4 text-on-surface">${dx.h2} <span class="text-primary">${dx.h2Highlight}</span></h2>
-                <p class="text-on-surface-variant max-w-2xl mx-auto">${dx.p}</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-surface-container-low rounded-lg p-6 border border-outline-variant/10">
-                    <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
-                        ${ICONS.dxTS}
-                    </div>
-                    <h3 class="font-headline text-xl font-bold mb-3 text-on-surface">${dx.card1Title}</h3>
-                    <p class="text-sm text-on-surface-variant mb-4">${dx.card1p}</p>
-                    <pre class="text-xs font-mono text-zinc-400 bg-surface-container-lowest p-3 rounded border border-outline-variant/10"><code>@property()
-speed: number = 10;</code></pre>
-                </div>
-                <div class="bg-surface-container-low rounded-lg p-6 border border-outline-variant/10">
-                    <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
-                        ${ICONS.dxAutoload}
-                    </div>
-                    <h3 class="font-headline text-xl font-bold mb-3 text-on-surface">${dx.card2Title}</h3>
-                    <p class="text-sm text-on-surface-variant mb-4">${dx.card2p}</p>
-                    <pre class="text-xs font-mono text-zinc-400 bg-surface-container-lowest p-3 rounded border border-outline-variant/10"><code>@autoload()
-class AudioManager {
-  playSfx(name: string) {}
-}</code></pre>
-                </div>
-                <div class="bg-surface-container-low rounded-lg p-6 border border-outline-variant/10">
-                    <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
-                        ${ICONS.dxComponent}
-                    </div>
-                    <h3 class="font-headline text-xl font-bold mb-3 text-on-surface">${dx.card3Title}</h3>
-                    <p class="text-sm text-on-surface-variant mb-4">${dx.card3p}</p>
-                    <pre class="text-xs font-mono text-zinc-400 bg-surface-container-lowest p-3 rounded border border-outline-variant/10"><code>entity.addComponent(RigidBody);
-entity.addComponent(Collider);</code></pre>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Future Section -->
-    <section class="py-24 px-8 relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-tertiary/5 blur-[120px] -z-10 rounded-full"></div>
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
-            <div class="flex-1">
-                <div
-                    class="inline-block px-3 py-1 bg-tertiary/10 border border-tertiary/20 text-tertiary text-[10px] font-bold uppercase tracking-widest mb-6">
-                    ${fu.badge}</div>
-                <h2 class="font-headline text-4xl md:text-5xl font-bold mb-6">${fu.h2} <span
-                        class="text-white">${fu.h2Highlight}</span></h2>
-                <p class="text-on-surface-variant text-lg leading-relaxed mb-8">
-                    ${fu.p}
-                </p>
-                <ul class="space-y-4">
-                    <li class="flex items-start gap-4">
-                        <div class="mt-1 w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
-                            ${ICONS.futureCheck}
-                        </div>
-                        <div>
-                            <span class="font-bold text-on-surface block">${fu.item1Title}</span>
-                            <p class="text-sm text-on-surface-variant">${fu.item1p}</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-4">
-                        <div class="mt-1 w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
-                            ${ICONS.futureCheck}
-                        </div>
-                        <div>
-                            <span class="font-bold text-on-surface block">${fu.item2Title}</span>
-                            <p class="text-sm text-on-surface-variant">${fu.item2p}</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="flex-1 relative">
-                <div
-                    class="aspect-video bg-surface-container rounded-xl border border-outline-variant/20 overflow-hidden">
-                    <picture>
-                        <source srcset="/media/bridge-visual.webp" type="image/webp">
-                        <img class="w-full h-full object-cover grayscale opacity-50"
-                            alt="${fu.imageAlt}"
-                            src="/media/bridge-visual.png" width="512" height="512"
-                            loading="lazy" decoding="async" />
-                    </picture>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        ${ICONS.futureLink}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Final CTA -->
-    <section class="py-24 px-8">
-        <div class="max-w-5xl mx-auto bg-primary rounded-lg p-12 text-center relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('/media/carbon-fibre.webp')]">
-            </div>
-            <h2 class="font-headline text-4xl font-black text-on-primary mb-6 relative z-10">${c.h2}</h2>
-            <p class="text-on-primary/80 font-medium mb-10 max-w-xl mx-auto relative z-10">
-                ${c.p}
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-                <button
-                    class="px-10 py-4 bg-surface text-white font-bold rounded-sm uppercase tracking-widest text-sm hover:bg-surface-bright transition-colors">
-                    ${c.btn1}
-                </button>
-                <button
-                    class="px-10 py-4 border-2 border-on-primary text-on-primary font-bold rounded-sm uppercase tracking-widest text-sm hover:bg-on-primary/10 transition-colors">
-                    ${c.btn2}
-                </button>
-            </div>
-        </div>
-    </section>
+    </main>
+
     <!-- Footer -->
-    <footer class="bg-zinc-950 w-full py-12 px-8 border-t border-zinc-900/20 tonal-depth-shift bg-zinc-900/20">
-        <div class="max-w-7xl mx-auto w-full">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-                <div class="col-span-2 md:col-span-1">
-                    <div class="text-lg font-black text-zinc-200 mb-4 font-headline uppercase">Pix3</div>
-                    <p class="font-['Inter'] text-xs text-zinc-500 leading-relaxed max-w-[200px]">
-                        ${fo.tagline}
-                    </p>
-                </div>
+    <footer>
+        <div class="wrap">
+            <div class="fgrid">
                 <div>
-                    <h4 class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4">${fo.platformHeading}</h4>
-                    <ul class="space-y-2">
-                        ${fo.platformLinks.map(link => `<li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
-                                href="#">${link}</a></li>`).join('\n                        ')}
-                    </ul>
+                    ${logo()}
+                    <p>${fo.tagline}</p>
+                    <div class="cta">
+                        ${btn({ href: SITE.editor, label: t.nav.openEditor, variant: 'p', small: true })}
+                    </div>
                 </div>
-                <div>
-                    <h4 class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4">${fo.communityHeading}</h4>
-                    <ul class="space-y-2">
-                        ${fo.communityLinks.map(link => `<li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
-                                href="#">${link}</a></li>`).join('\n                        ')}
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4">${fo.companyHeading}</h4>
-                    <ul class="space-y-2">
-                        ${fo.companyLinks.map(link => `<li><a class="font-['Inter'] text-xs text-zinc-500 hover:text-yellow-400 hover:underline decoration-yellow-400 underline-offset-4 transition-all"
-                                href="#">${link}</a></li>`).join('\n                        ')}
-                    </ul>
-                </div>
+                ${footerColumn(fo.platformHeading, 'platformLinks')}
+                ${footerColumn(fo.communityHeading, 'communityLinks')}
+                ${footerColumn(fo.companyHeading, 'companyLinks')}
             </div>
-            <div class="pt-8 border-t border-zinc-900/50 flex flex-col md:flex-row justify-between items-center gap-4">
-                <span class="font-['Inter'] text-xs text-zinc-500">${fo.copyright}</span>
-                <div class="flex gap-4 items-center">
-                    <a href="/" class="${sw.en.active ? 'text-primary' : 'text-zinc-600 hover:text-primary'} transition-colors text-xs font-headline font-bold tracking-wider">EN</a>
-                    <span class="text-zinc-800 select-none text-xs">|</span>
-                    <a href="/ru/" class="${sw.ru.active ? 'text-primary' : 'text-zinc-600 hover:text-primary'} transition-colors text-xs font-headline font-bold tracking-wider">RU</a>
-                    <span class="w-px h-4 bg-zinc-800"></span>
-                    ${ICONS.footerGlobe}
-                    ${ICONS.footerSettings}
-                </div>
+            <div class="fbot">
+                <span>${fo.copyright}</span>
+                ${langSwitcher(sw)}
             </div>
         </div>
     </footer>
+
+    <script>
+        (function () {
+            var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // Sticky header gets a line + denser background once scrolled.
+            var hdr = document.getElementById('hdr');
+            addEventListener('scroll', function () {
+                hdr.classList.toggle('stuck', scrollY > 8);
+            }, { passive: true });
+
+            // Reveal on scroll — once per element, ~15% visible. Elements taller
+            // than the viewport can never reach that ratio, so they reveal on
+            // first intersection instead.
+            var revealables = document.querySelectorAll('.reveal');
+            if (reduceMotion || !('IntersectionObserver' in window)) {
+                revealables.forEach(function (el) { el.classList.add('in'); });
+            } else {
+                var io = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) {
+                        var tall = e.boundingClientRect.height > innerHeight * 0.6;
+                        if (e.isIntersecting && (tall || e.intersectionRatio >= 0.15)) {
+                            e.target.classList.add('in');
+                            io.unobserve(e.target);
+                        }
+                    });
+                }, { threshold: [0, 0.15] });
+                revealables.forEach(function (el) { io.observe(el); });
+            }
+
+            // Demo: swap the still for the embed on demand (no third-party
+            // request until the visitor asks for it).
+            var media = document.getElementById('heromedia');
+            function playDemo() {
+                if (!media || media.dataset.on) return;
+                media.dataset.on = '1';
+                media.closest('.shot').setAttribute('data-playing', '');
+                var frame = document.createElement('iframe');
+                frame.src = 'https://www.youtube-nocookie.com/embed/' + media.dataset.videoId + '?autoplay=1&rel=0';
+                frame.title = media.dataset.videoTitle;
+                frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+                frame.allowFullscreen = true;
+                media.replaceChildren(frame);
+            }
+            var playBtn = document.getElementById('playbtn');
+            if (playBtn) playBtn.addEventListener('click', playDemo);
+            var watchDemo = document.getElementById('watch-demo');
+            if (watchDemo) watchDemo.addEventListener('click', function () { playDemo(); });
+
+            // Mobile drawer.
+            var burger = document.getElementById('burger');
+            var drawer = document.getElementById('drawer');
+            var drawerClose = document.getElementById('drawer-close');
+            function setNav(open) {
+                drawer.toggleAttribute('data-open', open);
+                drawer.setAttribute('aria-hidden', String(!open));
+                burger.setAttribute('aria-expanded', String(open));
+                document.body.toggleAttribute('data-nav-open', open);
+                (open ? drawerClose : burger).focus();
+            }
+            burger.addEventListener('click', function () { setNav(true); });
+            drawerClose.addEventListener('click', function () { setNav(false); });
+            drawer.querySelectorAll('[data-nav-close]').forEach(function (el) {
+                el.addEventListener('click', function () { setNav(false); });
+            });
+            addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && drawer.hasAttribute('data-open')) setNav(false);
+            });
+            matchMedia('(min-width: 901px)').addEventListener('change', function (e) {
+                if (e.matches && drawer.hasAttribute('data-open')) setNav(false);
+            });
+        })();
+    </script>
 
     <!-- Yandex.Metrika counter (loaded after first paint) -->
     <script>
@@ -761,8 +1068,8 @@ entity.addComponent(Collider);</code></pre>
                     m[i].l = 1 * new Date();
                     for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
                     k = e.createElement(t); a = e.getElementsByTagName(t)[0]; k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
-                })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=108302071', 'ym');
-                ym(108302071, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: 'dataLayer', referrer: document.referrer, url: location.href, accurateTrackBounce: true, trackLinks: true });
+                })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=${SITE.metrikaId}', 'ym');
+                ym(${SITE.metrikaId}, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: 'dataLayer', referrer: document.referrer, url: location.href, accurateTrackBounce: true, trackLinks: true });
             }
             if ('requestIdleCallback' in window) {
                 requestIdleCallback(loadMetrika, { timeout: 3000 });

@@ -8,10 +8,13 @@ Pix3 is a landing page website for a WebGL playable-ads engine that supports bot
 
 ```
 pix3dev/
+├── generate-pages.js       # SOURCE OF TRUTH for markup + copy (all locales)
 ├── src/
-│   ├── index.html          # Main landing page
-│   └── style.css          # Tailwind CSS + custom styles
+│   ├── index.html          # GENERATED — do not hand-edit
+│   ├── ru/index.html       # GENERATED — do not hand-edit
+│   └── style.css          # design tokens + component styles (Tailwind v4)
 ├── public/
+│   ├── fonts/              # self-hosted variable WOFF2 subsets
 │   └── media/              # Static assets (copied to dist/)
 ├── dist/                   # Build output (deployed to GitHub Pages)
 ├── postcss.config.js       # PostCSS configuration
@@ -59,17 +62,19 @@ npm test -- --grep "pattern"  # Run tests matching pattern
 ### General Principles
 
 - Keep changes minimal and focused
-- Maintain the dark theme aesthetic (primary color: `#fbcc48` yellow, background: `#0e0e10`)
+- Never hand-edit `src/index.html` or `src/ru/index.html` — they are regenerated from `generate-pages.js` on every dev/build run
+- Maintain the dark theme aesthetic; take colours from the tokens in `src/style.css` (`--bg`, `--fg`, `--amber`, `--mint`), never from a literal
 - Preserve semantic HTML structure
 - Ensure responsive design works on mobile/desktop
 
 ### HTML Guidelines
 
 1. **Doctype & Structure**: Use HTML5 doctype, maintain proper head/body structure
-2. **Accessibility**: Include alt text for all images, use semantic elements (nav, section, footer)
-3. **Tailwind Classes**: Use Tailwind utility classes. Custom colors are defined in `src/style.css` using `@theme`
-4. **Custom Colors**: Use the custom color palette (`bg-surface`, `text-primary`, etc.)
-5. **Font Families**: Use `font-headline` (Space Grotesk) for headings, `font-body` (Inter) for body text
+2. **Accessibility**: Include alt text for all images, use semantic elements (nav, section, footer); keep heading levels sequential (h1 → h2 → h3, never skip), and give every image `width`/`height`
+3. **Classes**: Use the semantic component classes from `src/style.css` (`.btn.p`, `.card`, `.eyebrow`, `.head`) and the helper functions in `generate-pages.js` — do not paste markup or reach for utilities that duplicate them
+4. **Colors**: Only `var(--token)`. New translucent shades become a derived `:root` token via `color-mix()`
+5. **Font Families**: `--ff-d` Space Grotesk (headings/buttons), `--ff-b` IBM Plex Sans (body), `--ff-m` JetBrains Mono (labels/numbers)
+6. **Copy**: All user-visible text lives in the `strings` dictionary in `generate-pages.js`, in **every** locale — see the i18n fallback rules in CLAUDE.md
 
 ### CSS Guidelines
 
@@ -108,17 +113,18 @@ npm test -- --grep "pattern"  # Run tests matching pattern
 ## External Dependencies
 
 - **Tailwind CSS v4**: Built via Vite + PostCSS (no CDN)
-- **Google Fonts**: Space Grotesk, Inter, Material Symbols Outlined
-- **Yandex Metrika**: Analytics tracking
+- **Fonts**: Space Grotesk, IBM Plex Sans, JetBrains Mono — all self-hosted in `public/fonts/`, no Google Fonts request at runtime
+- **YouTube**: the hero demo embed (`youtube-nocookie`) is injected only after the visitor clicks play
+- **Yandex Metrika**: Analytics tracking (loaded on idle after first paint)
 
 ## Common Tasks
 
 ### Adding a New Section
 
-1. Add HTML markup in `src/index.html` using appropriate semantic element (`<section>`, `<div>`, etc.)
-2. Apply Tailwind classes for styling
-3. Use custom colors from the theme (`bg-surface`, `text-primary`, etc.)
-4. Test responsive behavior with `npm run dev`
+1. Add the copy to `strings.en` in `generate-pages.js`, then translate it in `strings.ru` (untranslated keys fall back to English rather than blanking)
+2. Add the markup to `renderPage()` using a semantic element and the existing components (`sectionHead()`, `card`, `btn()`); add `class="reveal"` for the scroll-in
+3. Style with tokens in `src/style.css`; if the section needs a new colour shade, derive it with `color-mix()` into a `:root` token
+4. Test responsive behaviour with `npm run dev` at 1440 / 1024 / 768 / 390 — nothing may scroll horizontally
 
 ### Updating Styles
 
